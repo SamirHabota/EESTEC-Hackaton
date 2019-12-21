@@ -114,6 +114,10 @@ button {
     font-weight: 900;
 }
 
+.border-2{
+    border-width: 2px !important;
+}
+
 .space--holder {
     padding-right: 5px;
 }

@@ -1,0 +1,65 @@
+@{
+Layout = "_Layout";
+}
+
+<div class="card-deck col-md-4 col-12 visycard m-auto">
+    <!-- Header -->
+    <h1 class="my-1"><b>Build</b> your <b>deck</b></h1>
+
+    <!-- Deck image -->
+    <img src="img/deck.png" class="icon-medium my-3" />
+
+    <!-- Subheading -->
+    <h4 class="my-1 mb-4">
+        Choose the lectures or even the complete subject and
+        <b>start studying now!</b>
+    </h4>
+
+    <!-- Subject -->
+    <div class="border-2 border rounded border-primary px-4 py-2 text-left mt-2">
+        <div href=".subject1" data-toggle="collapse">
+            <b class="ml-1">Programiranje II</b>
+            <span class="float-right fas fa-chevron-down mt-1"></span>
+        </div>
+        <div class=" pl-3 collapse hide subject1">
+            <!-- Lecture -->
+            <div>
+                <input type="checkbox" id="checkbox2" />
+                <label class="form-check-label" for="checkbox2">
+                    <b class="ml-1">Lekcija 1</b>
+                </label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="checkbox3" />
+                <label class="form-check-label" for="checkbox3">
+                    <b class="ml-1">Lekcija 2</b>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Subject -->
+    <div class="border-2 border rounded border-primary px-4 py-2 text-left mt-2">
+        <div href=".subject2" data-toggle="collapse">
+            <b class="ml-1">Programiranje III</b>
+            <span class="float-right fas fa-chevron-down mt-1"></span>
+        </div>
+        <div class=" pl-3 collapse hide subject2">
+            <!-- Lecture -->
+            <div>
+                <input type="checkbox" id="checkbox6" />
+                <label class="form-check-label" for="checkbox6">
+                    <b class="ml-1">Lekcija 1</b>
+                </label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="checkbox7" />
+                <label class="form-check-label" for="checkbox7">
+                    <b class="ml-1">Lekcija 2</b>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>

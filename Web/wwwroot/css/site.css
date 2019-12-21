@@ -1,56 +1,188 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿body {
+    margin-top: 5%;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,600,700&display=swap");
+
+* {
+    font-family: "Raleway", sans-serif;
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+:root {
+    --color--darkest--blue: #184894;
+    --color--dark--blue: #1870a8;
+    --color--light--blue: #189cbd;
+    --color--lightest--blue: #7ebad4;
 }
 
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+.primary--bold {
+    font-weight: 900;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+.space--holder {
+    padding-right: 5px;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+.medium--font {
+    font-size: 30px;
+    font-weight: 900;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
+
+.card {
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    color: black;
+    background: white;
+    background-clip: padding-box;
+    border: solid 5px transparent;
+    border-radius: 1em;
+    text-align: center;
+    width: 28%;
+    height: 600px;
+}
+
+    .card:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        margin: -5px;
+        border-radius: inherit;
+        background: linear-gradient( to right, var(--color--darkest--blue), var(--color--lightest--blue) );
+    }
+
+.card--title {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.card--separator {
+    background: linear-gradient( to right, var(--color--darkest--blue), var(--color--lightest--blue) );
+    height: 3px;
+    border: none;
+    max-width: 55px;
+}
+
+.card--professor {
+    font-weight: 100;
+}
+
+.card--content {
+    padding: 0px 25px 20px;
+}
+
+.card--content--text {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.card--content--row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -20px;
+}
+
+.card--content--row--title {
+    float: left;
+    font-family: "Raleway", sans-serif;
+}
+
+.card--content--row--badge {
+    background-color: var(--color--dark--blue);
+    color: white;
+    font-weight: 100;
+    float: right;
+    padding: 5px;
+    width: 2.5em;
+    border-radius: 15px;
+}
+
+.card--content--label--container {
+    display: flex;
+    padding-top: 35px;
+    flex-wrap: wrap;
+}
+
+.card--content--label {
+    background-color: var(--color--light--blue);
+    color: white;
+    font-weight: 100;
+    float: right;
+    border-radius: 15px;
+    margin: 5px;
+    flex-wrap: wrap;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+/*SIDEBAR*/
+.sidebar {
+    padding: 20px;
+    width: 25%;
+    height: 590px;
+    background-image: linear-gradient( var(--color--darkest--blue), var(--color--lightest--blue) );
+    color: white;
+    border-top-right-radius: 142px;
+    position: relative;
+    text-align: center;
+}
+
+.sidebar--image {
+    border-radius: 100%;
+    height: 150px;
+    width: 150px;
+    object-fit: cover;
+    border: 3px solid white;
+    position: absolute;
+    top: -70px;
+    left: calc(50% - 75px);
+}
+
+.sidebar--name--holder {
+    display: flex;
+    font-size: 33px;
+    justify-content: center;
+}
+
+.sidebar--firstName {
+    margin-bottom: 10px;
+    padding-top: 70px;
+}
+
+.sidebar--lastname {
+    margin-bottom: 10px;
+    padding-top: 70px;
+    font-weight: 690;
+    padding-left: 10px;
+}
+
+.sidebar--info--holder {
+    display: flex;
+    padding-left: 5px;
+    padding-bottom: 15px;
+    font-size: 19px;
+}
+
+.sidebar--icon {
+    height: 40px;
+    padding-right: 15px;
+    margin-top: 5px;
+}
+
+.sidebar--points--holder {
+    margin-top: 35px;
+    display: flex;
+}
+
+.sidebar--points--icon {
+    height: 75px;
+    padding-right: 15px;
+    margin-top: 5px;
+    margin-left: 25%;
+    margin-left: 20%;
 }

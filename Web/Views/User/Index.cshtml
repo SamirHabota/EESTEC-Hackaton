@@ -17,9 +17,10 @@
             @{
                 foreach (var subject in Model.Subjects)
                 {
+                    <a class="visycard__hover d-block col-md-4 col-12 text-decoration-none" asp-action="Subject" asp-route-id="@subject.Id">
 
-                    <div class="col-md-4 col-12">
-                        <div class="visycard ">
+                        <div class="visycard">
+
                             <h2 class="card--title"><b>@subject.Title</b></h2>
                             <hr class="card--separator" />
                             <h4 class="card--professor">@subject.Professor</h4>
@@ -51,7 +52,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 }
             }
 

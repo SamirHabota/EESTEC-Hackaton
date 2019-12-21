@@ -2,7 +2,8 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-
-$(document).ajaxComplete(function () {
-
+$(document).ready(function () {
+    /* Hack */
+    $('#profile-tab').trigger('click');
+    $('#home-tab').trigger('click');
 });

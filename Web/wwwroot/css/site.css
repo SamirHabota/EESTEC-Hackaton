@@ -113,6 +113,10 @@ button {
     font-weight: 900;
 }
 
+.border-2{
+    border-width: 2px !important;
+}
+
 .space--holder {
     padding-right: 5px;
 }
@@ -328,6 +332,33 @@ button {
     font-size: 25px;
     font-weight: 700;
     margin-right: 20px;
+}
+
+
+/*visyNavbar*/
+
+.custom--navbar.nav {
+    border-bottom: 1.5px solid var(--color--darkest--blue);
+}
+
+.custom--nav--item {
+    color: black;
+}
+
+.custom--navbar .nav-link.active {
+    background-color: transparent;
+    border-bottom: none;
+    border-color: transparent !important;
+    font-weight: 900 !important;
+    color: var(--color--darkest--blue) !important;
+}
+
+.custom--navbar .nav-item a:hover {
+    font-weight: 900;
+    border: none;
+    border-color: transparent;
+    color: black;
+}
 }
 
     .navbar--study:hover {

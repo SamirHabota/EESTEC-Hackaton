@@ -130,3 +130,32 @@
 </div>
 
 
+@*card rotation*@
+<div id="cardId"
+     class="rotation--card col-md-6 col-11 d-flex justify-content-center"
+     onclick="flip()"
+     isFLipped="true">
+    <div class="visy--test front w-100">
+        <p class="visy--test--question">
+            Do you know what a pointer is?
+        </p>
+        <div class="visy--cool-border visy--cool-border__small visy--hint"
+             id="hintId">
+            <img src="images/hint.png" class="hint--icon" />
+            <p class="hint--text">HINT</p>
+        </div>
+        <div class="visy--cool-border visy--cool-border__medium visy--show-answer"
+             id="showAnswerId">
+            <b>SHOW THE ANSWER</b>
+            <p>click or press space</p>
+        </div>
+    </div>
+
+    <div class="visy--test--fliped back w-100">
+        <p class="visy--test--question">
+            Here comes the answer!
+        </p>
+    </div>
+</div>
+
+

@@ -113,7 +113,7 @@ button {
     font-weight: 900;
 }
 
-.border-2{
+.border-2 {
     border-width: 2px !important;
 }
 
@@ -137,7 +137,7 @@ button {
     border: solid 5px transparent;
     border-radius: 1em;
     text-align: center;
-    height: 600px;
+    margin-bottom: 30px;
 }
 
 
@@ -185,10 +185,12 @@ button {
 .card--content--row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: -20px;
+    margin: 0;
+    margin-bottom: 5px;
 }
 
 .card--content--row--title {
+    font-weight: 600;
     float: left;
     font-family: "Raleway", sans-serif;
 }
@@ -198,20 +200,26 @@ button {
     color: white;
     font-weight: 100;
     float: right;
-    padding: 5px;
-    width: 2.5em;
+    padding: 5px 15px;
+    text-align: center;
+    width: auto;
     border-radius: 15px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 600;
+    height: 100%;
 }
 
 .card--content--label--container {
     display: flex;
-    padding-top: 35px;
     flex-wrap: wrap;
 }
+
 .card--content--label__stock {
     background-color: var(--color--light--blue);
     color: white;
 }
+
 .card--content--label {
     font-weight: 600;
     float: right;
@@ -221,20 +229,27 @@ button {
     padding: 5px 12px;
     font-size: 13px;
 }
-    .card--content--label__light {
-        background-color: var(--color--lightest--blue);
-        color: white;
-    }
-    /*SIDEBAR*/
-    .sidebar {
-        padding: 20px;
-        min-height: 590px;
-        background-image: linear-gradient( var(--color--darkest--blue), var(--color--lightest--blue) );
-        color: white;
-        border-top-right-radius: 142px;
-        position: relative;
-        text-align: center;
-    }
+
+.card--content--label__light {
+    background-color: var(--color--lightest--blue);
+    color: white;
+}
+/*SIDEBAR*/
+.sidebar-wrapper {
+    height: 100%;
+    padding-bottom: 30px;
+}
+
+.sidebar {
+    height: 100%;
+    padding: 50px 20px;
+    min-height: 590px;
+    background-image: linear-gradient( var(--color--darkest--blue), var(--color--lightest--blue) );
+    color: white;
+    border-top-right-radius: 142px;
+    position: relative;
+    text-align: center;
+}
 
 .sidebar--image {
     border-radius: 100%;
@@ -251,6 +266,7 @@ button {
     display: flex;
     font-size: 33px;
     justify-content: center;
+    margin-bottom: 40px;
 }
 
 .sidebar--firstName {
@@ -268,7 +284,6 @@ button {
 .sidebar--info--holder {
     display: flex;
     padding-left: 5px;
-    padding-bottom: 15px;
     font-size: 19px;
 }
 
@@ -279,7 +294,7 @@ button {
 }
 
 .sidebar--points--holder {
-    margin-top: 35px;
+    margin: 35px 0;
     justify-content: center;
     display: flex;
 }
@@ -359,11 +374,12 @@ button {
     border-color: transparent;
     color: black;
 }
+
 }
 
-    .navbar--study:hover {
-        color: white;
-    }
+.navbar--study:hover {
+    color: white;
+}
 
 main {
     margin-top: 100px;

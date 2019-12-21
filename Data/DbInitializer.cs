@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Models;
@@ -18,7 +18,7 @@ namespace Data
             var organization1 = new Organization
             {
                 Location = "Mostar",
-                Name = "Fakultet Informacijskih Tehnologija"
+                Name = "Fakultet informacijskih tehnologija"
             };
             var organization2 = new Organization
             {
@@ -34,30 +34,36 @@ namespace Data
 
             var account1 = new Account
             {
-                FirstName = "StudentFN",
-                LastName = "StudentLN",
-                UserName = "Student",
-                Email = "Student@Email.com",
+                FirstName = "Adnan",
+                LastName = "Čutura",
+                UserName = "adnan.cutura",
+                Email = "adnan.cutura@gmail.com",
                 Organization = organization1,
-                Year = 1
+                Year = 1,
+                VisyPoints = 30,
+                AvatarLink = "ado.jpg"
             };
             var account2 = new Account
             {
-                FirstName = "Student2FN",
-                LastName = "Student2LN",
-                UserName = "Student2",
-                Email = "Student2@Email.com",
+                FirstName = "Adi",
+                LastName = "Šoše",
+                UserName = "adi.sose",
+                Email = "adi.sose@gmail.com",
                 Organization = organization1,
-                Year = 1
+                Year = 1,
+                VisyPoints = 30,
+                AvatarLink = "adi.jpg"
             };
             var account3 = new Account
             {
-                FirstName = "Student3FN",
-                LastName = "Student3LN",
-                UserName = "Student3",
-                Email = "Student3@Email.com",
+                FirstName = "Samir",
+                LastName = "Habota",
+                UserName = "samir.habota",
+                Email = "samir.habota@email.com",
                 Organization = organization2,
-                Year = 3
+                Year = 3,
+                VisyPoints = 30,
+                AvatarLink = "samir.jpg"
             };
 
             await userManager.CreateAsync(account1, "1");
@@ -67,7 +73,7 @@ namespace Data
             #endregion
 
 
-            #region
+            #region Subject
 
             var subject1 = new Subject
             {
@@ -77,6 +83,7 @@ namespace Data
                 Professor = "doc. dr. Denis Music",
                 Organization = organization1,
                 SemesterNumber = 2,
+                Description = "Lorem ipsum dolor sit amet, conse ctetur adip isicing elit. At cupiditate excepturi labore. "
             };
 
             var subject2 = new Subject
@@ -86,7 +93,8 @@ namespace Data
                 Name = "Programming I",
                 Professor = "doc. dr. Elmir Babovic",
                 Organization = organization1,
-                SemesterNumber = 1
+                SemesterNumber = 1,
+                Description = "Lorem ipsum dolor sit amet, conse ctetur adip isicing elit. At cupiditate excepturi labore. "
             };
 
             var subject3 = new Subject
@@ -96,7 +104,8 @@ namespace Data
                 Name = "Eng. Math",
                 Professor = "doc. dr. Nina Bijedic",
                 Organization = organization1,
-                SemesterNumber = 1
+                SemesterNumber = 1,
+                Description = "Lorem ipsum dolor sit amet, conse ctetur adip isicing elit. At cupiditate excepturi labore. "
             };
 
             context.Subject.AddRange(subject1,
@@ -396,7 +405,7 @@ namespace Data
             {
                 Type = DocType.Book
             };
-            
+
             var doctype2 = new DocumetType
             {
                 Type = DocType.Script
@@ -439,18 +448,20 @@ namespace Data
                 DateCreated = DateTime.Now.AddHours(-11),
                 Group = group1
             };
-            
+
             context.Post.AddRange(post1,
                                   post2);
             context.SaveChanges();
             #endregion
 
             #region AccountGroup
-            var accountGroup1 = new AccountGroup{
+            var accountGroup1 = new AccountGroup
+            {
                 Account = account1,
                 Group = group1
             };
-            var accountGroup2 = new AccountGroup{
+            var accountGroup2 = new AccountGroup
+            {
                 Account = account2,
                 Group = group1
             };
@@ -480,7 +491,7 @@ namespace Data
             {
                 Account = account1,
                 Post = post1,
-                Text = "I've spoken with the teacher and they've said we don't have to",                
+                Text = "I've spoken with the teacher and they've said we don't have to",
                 DateCreated = DateTime.Now.AddHours(-10)
             };
 

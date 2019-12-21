@@ -1,125 +1,61 @@
-﻿
+﻿@model Web.Viewmodels.UserVM.IndexVM
 @{
     ViewData["Title"] = "user";
 }
 
 
-<div class="col-md-3 col-12">
-    <partial name="PartialViews/UserSidebar" />
+<div class="col-md-3 col-12" style="margin-right: 15px; margin-left: -15px;">
+    <partial name="PartialViews/UserSidebar" model="@Model.User" />
 </div>
 
 <div class="col-md-9 col-12">
     <div class="main--content">
 
-        <h1 class="page--title">Adnan's <b>subjects</b></h1>
-        <h3 class="page--subtitle">Share <b>visual</b> knowledge.</h3>
-  
+        <h1 class="page--title">@Model.User.FirstName's <b>subjects</b></h1>
+        <h3 class="page--subtitle mb-5">Share <b>visual</b> knowledge.</h3>
+        <div class="row">
+            @{
+                foreach (var subject in Model.Subjects)
+                {
 
-            <div class="row">
-                
-                <div class="col-md-4 col-12 visycard">
-                    <h2 class="card--title"><b>Programiranje I</b></h2>
-                    <hr class="card--separator" />
-                    <h4 class="card--professor">prof doc. dr Elmir Babović</h4>
-                    <div class="card--content">
-                        <p class="card--content--text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
-                            cupiditate excepturi labore.
-                        </p>
-                        <div class="card--content--row">
-                            <h3 class="card--content--row--title">ECTS</h3>
-                            <p class="card--content--row--badge">38</p>
-                        </div>
-                        <div class="card--content--row">
-                            <h3 class="card--content--row--title">Lectures</h3>
-                            <p class="card--content--row--badge">12</p>
-                        </div>
-                        <div class="card--content--row">
-                            <h3 class="card--content--row--title">Documents</h3>
-                            <p class="card--content--row--badge">15</p>
-                        </div>
-                        <div class="card--content--row">
-                            <h3 class="card--content--row--title">Cards</h3>
-                            <p class="card--content--row--badge">60</p>
-                        </div>
-                        <div class="card--content--label--container">
-                            <p class="card--content--label">1st year</p>
-                            <p class="card--content--label">c++</p>
-                            <p class="card--content--label">intro</p>
-                            <p class="card--content--label">1st semester</p>
+                    <div class="col-md-4 col-12">
+                        <div class="visycard ">
+                            <h2 class="card--title"><b>@subject.Title</b></h2>
+                            <hr class="card--separator" />
+                            <h4 class="card--professor">@subject.Professor</h4>
+                            <div class="card--content">
+                                <p class="card--content--text">
+                                    @subject.Description
+                                </p>
+                                <div class="card--content--row">
+                                    <h3 class="card--content--row--title">ECTS</h3>
+                                    <p class="card--content--row--badge">@subject.ETCS</p>
+                                </div>
+                                <div class="card--content--row">
+                                    <h3 class="card--content--row--title">Lectures</h3>
+                                    <p class="card--content--row--badge">@subject.LecturesCount</p>
+                                </div>
+                                <div class="card--content--row">
+                                    <h3 class="card--content--row--title">Documents</h3>
+                                    <p class="card--content--row--badge">@subject.DocumentCount</p>
+                                </div>
+                                <div class="card--content--row">
+                                    <h3 class="card--content--row--title">Cards</h3>
+                                    <p class="card--content--row--badge">@subject.CardCount</p>
+                                </div>
+                                <div class="card--content--label--container">
+                                    <p class="card--content--label card--content--label__stock">1st year</p>
+                                    <p class="card--content--label card--content--label__stock">c++</p>
+                                    <p class="card--content--label card--content--label__stock">intro</p>
+                                    <p class="card--content--label card--content--label__stock">1st semester</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+            }
 
-                <div class="visycard col-md-4 col-12">
-                    <h2 class="card--title"><b>Programiranje I</b></h2>
-                    <hr class="card--separator" />
-                    <h4 class="card--professor">prof doc. dr Elmir Babović</h4>
-                    <div class="card--content">
-                        <p class="card--content--text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
-                            cupiditate excepturi labore.
-                        </p>
-                        <div class="card--content--row">
-                            <h3 class="card--content--row--title">ECTS</h3>
-                            <p class="card--content--row--badge">38</p>
-                        </div>
-                        <div class="card--content--row">
-                            <h3 class="card--content--row--title">Lectures</h3>
-                            <p class="card--content--row--badge">12</p>
-                        </div>
-                        <div class="card--content--row">
-                            <h3 class="card--content--row--title">Documents</h3>
-                            <p class="card--content--row--badge">15</p>
-                        </div>
-                        <div class="card--content--row">
-                            <h3 class="card--content--row--title">Cards</h3>
-                            <p class="card--content--row--badge">60</p>
-                        </div>
-                        <div class="card--content--label--container">
-                            <p class="card--content--label">1st year</p>
-                            <p class="card--content--label">c++</p>
-                            <p class="card--content--label">intro</p>
-                            <p class="card--content--label">1st semester</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-4 col-12 visycard">
-                    <h2 class="card--title"><b>Programiranje I</b></h2>
-                    <hr class="card--separator" />
-                    <h4 class="card--professor">prof doc. dr Elmir Babović</h4>
-                    <div class="card--content">
-                        <p class="card--content--text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. At
-                            cupiditate excepturi labore.
-                        </p>
-                        <div class="card--content--row">
-                            <h3 class="card--content--row--title">ECTS</h3>
-                            <p class="card--content--row--badge">38</p>
-                        </div>
-                        <div class="card--content--row">
-                            <h3 class="card--content--row--title">Lectures</h3>
-                            <p class="card--content--row--badge">12</p>
-                        </div>
-                        <div class="card--content--row">
-                            <h3 class="card--content--row--title">Documents</h3>
-                            <p class="card--content--row--badge">15</p>
-                        </div>
-                        <div class="card--content--row">
-                            <h3 class="card--content--row--title">Cards</h3>
-                            <p class="card--content--row--badge">60</p>
-                        </div>
-                        <div class="card--content--label--container">
-                            <p class="card--content--label">1st year</p>
-                            <p class="card--content--label">c++</p>
-                            <p class="card--content--label">intro</p>
-                            <p class="card--content--label">1st semester</p>
-                        </div>
-                    </div>
-                </div>
+        </div>
 
-            </div>
-       
     </div>
 </div>

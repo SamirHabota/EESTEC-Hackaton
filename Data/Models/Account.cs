@@ -20,7 +20,8 @@ namespace Data.Models
         public string LastName { get; set; }
         public int OrganizationId { get; set; }
         public int Year { get; set; }
-        public string VisyPoints { get; set; }
+        public int? VisyPoints { get; set; }
+        public string AvatarLink { get; set; }
 
         public virtual Organization Organization { get; set; }
         public virtual ICollection<AccountGroup> AccountGroup { get; set; }

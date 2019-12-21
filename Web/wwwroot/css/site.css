@@ -1,10 +1,10 @@
-﻿body {
-    margin-top: 5%;
-}
-
-@import url("https://fonts.googleapis.com/css?family=Raleway:400,600,700&display=swap");
+﻿@import url("https://fonts.googleapis.com/css?family=Raleway:400,600,700&display=swap");
 
 * {
+    font-size: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
     font-family: "Raleway", sans-serif;
 }
 
@@ -14,6 +14,100 @@
     --color--light--blue: #189cbd;
     --color--lightest--blue: #7ebad4;
 }
+
+
+body {
+    margin: 0;
+    font-weight: 400;
+    color: #333;
+    overflow-x: hidden;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 2em;
+    line-height: 1;
+}
+
+h2 {
+    font-size: 1.75em;
+    line-height: 1;
+}
+
+h3 {
+    font-size: 1.5em;
+}
+
+h4 {
+    font-size: 1.25em;
+}
+
+h5 {
+    font-size: 1em;
+}
+
+h6 {
+    font-size: 0.8em;
+    letter-spacing: 1px;
+}
+
+
+a {
+    color: var(--color--dark--blue);
+}
+
+    a:focus,
+    a:active,
+    a:hover {
+        text-decoration: underline;
+        color: var(--color--dark--blue);
+    }
+
+button {
+    border: 0;
+    background: var(--color--dark--blue);
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    border-radius: 10px;
+}
+
+.button__small {
+    font-size: 13px;
+    padding: 2px 5px;
+}
+
+.button__small.button__wideHover:hover {
+    transition: 300ms ease-in-out;
+    padding: 2px 15px;
+}
+
+.button__wideHover:hover {
+    transition: 300ms ease-in-out;
+    padding: 10px 25px;
+}
+
+/* Backgrounds */
+.background--darkest-blue {
+    background: var(--color--darkest--blue);
+}
+
+.background--dark-blue {
+    background: var(--color--dark--blue);
+}
+
+
+.background--light-blue {
+    background: var(--color--light--blue);
+}
+
+.background--lightest-blue {
+    background: var(--color--lightest--blue);
+}
+
 
 .primary--bold {
     font-weight: 900;

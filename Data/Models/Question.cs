@@ -14,7 +14,7 @@ namespace Data.Models
         public int Id { get; set; }
         public string Text { get; set; }
         public int LectureId { get; set; }
-        public int OriginalAuthorId { get; set; }
+        public string OriginalAuthorId { get; set; }
 
         public virtual Lecture Lecture { get; set; }
         public virtual ICollection<Answer> Answer { get; set; }

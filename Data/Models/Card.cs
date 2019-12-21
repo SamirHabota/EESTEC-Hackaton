@@ -10,7 +10,7 @@ namespace Data.Models
         public string Answer { get; set; }
         public DateTime? LastShwon { get; set; }
         public DateTime? NextShowMin { get; set; }
-        public int OriginalAuthorId { get; set; }
+        public string OriginalAuthorId { get; set; }
         public int LectureId { get; set; }
 
         public virtual Lecture Lecture { get; set; }

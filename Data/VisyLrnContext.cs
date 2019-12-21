@@ -1,18 +1,17 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Data.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Data
 {
-    public partial class VisyLrnContext : DbContext
+    public partial class VisyLrnContext : IdentityDbContext<Account>
     {
         public VisyLrnContext()
         {
         }
 
-        public VisyLrnContext(DbContextOptions<VisyLrnContext> options)
+        public VisyLrnContext(DbContextOptions options)
             : base(options)
         {
         }
@@ -35,6 +34,8 @@ namespace Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.HasAnnotation("ProductVersion", "2.2.6-servicing-10079");
 
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys())) {

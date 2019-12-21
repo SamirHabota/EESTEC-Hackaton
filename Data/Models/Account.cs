@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace Data.Models
 {
-    public partial class Account
+    public partial class Account : IdentityUser
     {
         public Account()
         {
@@ -16,7 +16,6 @@ namespace Data.Models
             Subject = new HashSet<Subject>();
         }
 
-        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int OrganizationId { get; set; }

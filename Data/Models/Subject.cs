@@ -13,7 +13,7 @@ namespace Data.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int OrganizationId { get; set; }
-        public int AccountId { get; set; }
+        public string AccountId { get; set; }
         public string SyllabusPath { get; set; }
         public string Professor { get; set; }
         public int? Ects { get; set; }

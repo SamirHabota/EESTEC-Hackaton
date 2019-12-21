@@ -9,7 +9,7 @@ namespace Data.Models
         public string Title { get; set; }
         public string DocumentPath { get; set; }
         public string Extension { get; set; }
-        public int OriginalAuthor { get; set; }
+        public string OriginalAuthor { get; set; }
         public int LectureId { get; set; }
         public int TypeId { get; set; }
 

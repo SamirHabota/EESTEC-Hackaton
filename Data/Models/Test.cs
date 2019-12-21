@@ -14,7 +14,9 @@ namespace Data.Models
         public double TotalScore { get; set; }
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
+        public string AccountId {get; set;}
 
         public virtual ICollection<TestQuestion> TestQuestion { get; set; }
+        public virtual Account Account {get; set;}
     }
 }

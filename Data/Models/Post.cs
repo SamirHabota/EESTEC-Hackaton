@@ -12,7 +12,7 @@ namespace Data.Models
 
         public int Id { get; set; }
         public string Text { get; set; }
-        public int AccountId { get; set; }
+        public string AccountId { get; set; }
         public int GroupId { get; set; }
 
         public virtual Account Account { get; set; }

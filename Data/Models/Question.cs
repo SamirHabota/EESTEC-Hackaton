@@ -19,5 +19,6 @@ namespace Data.Models
         public virtual Lecture Lecture { get; set; }
         public virtual ICollection<Answer> Answer { get; set; }
         public virtual ICollection<TestQuestion> TestQuestion { get; set; }
+        public virtual Account OriginalAuthor {get; set;}
     }
 }

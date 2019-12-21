@@ -9,11 +9,17 @@ namespace Data.Models
         public string Question { get; set; }
         public string Answer { get; set; }
         public DateTime? LastShwon { get; set; }
-        public DateTime? NextShowMin { get; set; }
+        public Priority Priority { get; set; }
         public string OriginalAuthorId { get; set; }
         public int LectureId { get; set; }
 
         public virtual Lecture Lecture { get; set; }
         public virtual Account OriginalAuthor { get; set; }
+    }
+
+    public enum Priority {
+        Low,
+        Medium,
+        High
     }
 }

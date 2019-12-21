@@ -13,6 +13,7 @@ namespace Data.Models
 
         public int Id { get; set; }
         public int CreatorId { get; set; }
+        public string Name {get; set;}
 
         public virtual Account Creator { get; set; }
         public virtual ICollection<AccountGroup> AccountGroup { get; set; }

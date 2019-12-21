@@ -1,0 +1,17 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/bin":true,
+        "**/obj":true,
+        "**/*sln":true,
+        //  "**/*.vscode":true,
+         "**/*.Properties":true
+    },
+    "NETCore" : true,
+    "workbench.sideBar.location": "right",
+    "workbench.colorTheme": "Default Dark+"
+}

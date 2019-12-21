@@ -9,6 +9,7 @@ namespace Data.Models
         public int PostId { get; set; }
         public string Text { get; set; }
         public string AccountId { get; set; }
+        public DateTime DateCreated {get; set;}
 
         public virtual Account Account { get; set; }
         public virtual Post Post { get; set; }

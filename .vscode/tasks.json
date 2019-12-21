@@ -1,0 +1,64 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "--project",
+                "${workspaceFolder}/Web/Web.csproj",
+                "run",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile",
+            "options": {
+                "env": {
+                    "ASPNETCORE_ENVIRONMENT": "Development"
+                }
+            }
+        },
+        {
+            "label": "addMigration",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "ef",
+                "migrations",
+                "add",
+                "${input:migrationName}",
+                "--project",
+                "${workspaceFolder}/Data/Data.csproj",
+                "--startup-project",
+                "${workspaceFolder}/Web/Web.csproj",
+            ],
+            "problemMatcher": [
+                "$msCompile"
+            ]
+        },
+        {
+            "label": "updateDatabase",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "ef",
+                "database",
+                "update",
+                "--project",
+                "${workspaceFolder}/Web/Web.csproj"
+            ],
+            "problemMatcher": [
+                "$msCompile"
+            ]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "migrationName",
+            "type":"promptString",
+            "description": "Migration name",
+        }
+    ]
+}

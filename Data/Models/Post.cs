@@ -14,6 +14,7 @@ namespace Data.Models
         public string Text { get; set; }
         public string AccountId { get; set; }
         public int GroupId { get; set; }
+        public DateTime DateCreated {get; set;}
 
         public virtual Account Account { get; set; }
         public virtual Group Group { get; set; }

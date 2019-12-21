@@ -11,8 +11,14 @@ namespace Data.Models
         }
 
         public int Id { get; set; }
-        public string Name { get; set; }
+        public DocType Type {get; set;}
 
         public virtual ICollection<Document> Document { get; set; }
+    }
+
+    public enum DocType {
+        Book,
+        Script,
+        Note
     }
 }

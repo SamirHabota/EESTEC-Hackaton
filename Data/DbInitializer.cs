@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Data.Models;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +11,8 @@ namespace Data
 
         public static async Task<bool> InitializeDB(this VisyLrnContext context, UserManager<Account> userManager)
         {
+            if (context.Organization.Any())
+                return false;
 
             #region Organizations
             var organization1 = new Organization

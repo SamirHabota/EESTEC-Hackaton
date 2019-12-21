@@ -340,7 +340,7 @@ ASALocalRun/
 healthchecksdb
 
 #VS Code
-**/.vscode/
+*/.vscode/
 *.code-workspace
 **/appsettings.Development.json
 **/bin/

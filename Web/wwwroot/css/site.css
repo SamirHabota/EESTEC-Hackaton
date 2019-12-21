@@ -2,7 +2,6 @@
 
 * {
     font-size: 100%;
-    min-height: 100%;
     margin: 0;
     padding: 0;
     font-family: "Raleway", sans-serif;
@@ -27,7 +26,7 @@ body {
 }
 
 h1 {
-    font-size: 2em;
+    font-size: 2.5em;
     line-height: 1;
 }
 
@@ -37,7 +36,7 @@ h2 {
 }
 
 h3 {
-    font-size: 1.5em;
+    font-size: 1.6em;
 }
 
 h4 {
@@ -80,10 +79,10 @@ button {
     padding: 2px 5px;
 }
 
-.button__small.button__wideHover:hover {
-    transition: 300ms ease-in-out;
-    padding: 2px 15px;
-}
+    .button__small.button__wideHover:hover {
+        transition: 300ms ease-in-out;
+        padding: 2px 15px;
+    }
 
 .button__wideHover:hover {
     transition: 300ms ease-in-out;
@@ -124,6 +123,7 @@ button {
 }
 
 .visycard {
+    padding: 20px 10px;
     display: block;
     position: relative;
     box-sizing: border-box;
@@ -133,9 +133,10 @@ button {
     border: solid 5px transparent;
     border-radius: 1em;
     text-align: center;
-    width: 28%;
     height: 600px;
 }
+
+
 
     .visycard:before {
         content: "";
@@ -157,6 +158,7 @@ button {
 }
 
 .card--separator {
+    margin: 10px auto 15px auto;
     background: linear-gradient( to right, var(--color--darkest--blue), var(--color--lightest--blue) );
     height: 3px;
     border: none;
@@ -172,7 +174,7 @@ button {
 }
 
 .card--content--text {
-    text-align: justify;
+    text-align: left;
     text-justify: inter-word;
 }
 
@@ -202,30 +204,33 @@ button {
     padding-top: 35px;
     flex-wrap: wrap;
 }
-
-.card--content--label {
+.card--content--label__stock {
     background-color: var(--color--light--blue);
     color: white;
-    font-weight: 100;
+}
+.card--content--label {
+    font-weight: 600;
     float: right;
     border-radius: 15px;
     margin: 5px;
     flex-wrap: wrap;
-    padding: 5px 10px;
-    font-size: 12px;
+    padding: 5px 12px;
+    font-size: 13px;
 }
-
-/*SIDEBAR*/
-.sidebar {
-    padding: 20px;
-    width: 25%;
-    height: 590px;
-    background-image: linear-gradient( var(--color--darkest--blue), var(--color--lightest--blue) );
-    color: white;
-    border-top-right-radius: 142px;
-    position: relative;
-    text-align: center;
-}
+    .card--content--label__light {
+        background-color: var(--color--lightest--blue);
+        color: white;
+    }
+    /*SIDEBAR*/
+    .sidebar {
+        padding: 20px;
+        min-height: 590px;
+        background-image: linear-gradient( var(--color--darkest--blue), var(--color--lightest--blue) );
+        color: white;
+        border-top-right-radius: 142px;
+        position: relative;
+        text-align: center;
+    }
 
 .sidebar--image {
     border-radius: 100%;
@@ -271,39 +276,24 @@ button {
 
 .sidebar--points--holder {
     margin-top: 35px;
+    justify-content: center;
     display: flex;
 }
 
 .sidebar--points--icon {
     height: 75px;
     padding-right: 15px;
-    margin-top: 5px;
-    margin-left: 25%;
-    margin-left: 20%;
+    margin-top: -12px;
 }
 
-.visycard {
-    display: block;
-    position: relative;
-    box-sizing: border-box;
-    color: black;
-    background: white;
-    background-clip: padding-box;
-    border: solid 5px transparent;
-    border-radius: 1em;
-    text-align: center;
-    width: 28%;
-    height: 600px;
-}
-
-.card-test{
+.card-test {
     height: auto;
     padding: 20px;
     width: auto;
 }
 
-.icon-medium{
-    width:50px;
+.icon-medium {
+    width: 50px;
 }
 /* Navigation */
 .navbar--logo {
@@ -316,6 +306,7 @@ button {
     font-size: 30px;
     margin-left: 15px;
 }
+
 .navbar--right, .navbar--left {
     display: flex;
     align-content: center;
@@ -337,4 +328,12 @@ button {
     font-size: 25px;
     font-weight: 700;
     margin-right: 20px;
+}
+
+    .navbar--study:hover {
+        color: white;
+    }
+
+main {
+    margin-top: 100px;
 }

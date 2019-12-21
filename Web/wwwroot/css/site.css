@@ -374,7 +374,6 @@ button {
     border-color: transparent;
     color: black;
 }
-
 }
 
 .navbar--study:hover {
@@ -383,4 +382,83 @@ button {
 
 main {
     margin-top: 100px;
+}
+
+/*grab icon*/
+.steal--button {
+    display: flex;
+    border: 1px solid #e73841;
+    border-radius: 10px;
+    width: 9%;
+    height: 60px;
+}
+
+.steal--icon {
+    height: 37px;
+    margin: 10px;
+}
+
+.steal--text--holder {
+    margin: 5px 0 5px;
+}
+
+.steal--title {
+    margin: 0px;
+    font-weight: bolder;
+}
+
+.steal--button:hover {
+    cursor: pointer;
+}
+
+/*visyTest*/
+.visy--test {
+    align-content: center;
+    background-color: #b11852;
+    color: white;
+    justify-content: center;
+    text-align: center;
+    height: 350px;
+    width: auto;
+    border-radius: 25px;
+    display: flex;
+}
+
+.visy--test--question {
+    align-self: center;
+    font-size: 85px;
+    font-weight: 900;
+}
+
+.visy--hint {
+    position: absolute;
+    top: -67px;
+    color: black;
+    background-color: white;
+    right: 50px;
+}
+
+.visy--cool-border {
+    margin: 50px auto;
+    width: 250px;
+    height: 250px;
+    border-top: 3px solid #3acfd5;
+    border-bottom: 3px solid #3a4ed5;
+    box-sizing: border-box;
+    background-position: 0 0, 100% 0;
+    background-repeat: no-repeat;
+    background-size: 3px 100%;
+    background-image: linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%), linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%);
+    border-radius: 5px;
+}
+
+.visy--cool-border__small {
+    width: 100px;
+    height: 35px;
+}
+
+.test-button{
+    position: absolute;
+    bottom:0;
+    margin-bottom:-22.5px;
 }

@@ -90,6 +90,7 @@ button {
     padding: 10px 25px;
 }
 
+
 /* Backgrounds */
 .background--darkest-blue {
     background: var(--color--darkest--blue);
@@ -279,4 +280,37 @@ button {
     margin-top: 5px;
     margin-left: 25%;
     margin-left: 20%;
+}
+
+/* Navigation */
+.navbar--logo {
+    height: 40px;
+    width: auto;
+}
+.navbar--brand {
+    color: #fff;
+    font-size: 30px;
+    margin-left: 15px;
+}
+.navbar--right, .navbar--left {
+    display: flex;
+    align-content: center;
+}
+
+.navbar .profile--logo {
+    border-radius: 100%;
+    border: 2px solid #ffffff;
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.navbar--study {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 25px;
+    font-weight: 700;
+    margin-right: 20px;
 }

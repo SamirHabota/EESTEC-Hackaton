@@ -5,6 +5,7 @@
     margin: 0;
     padding: 0;
     font-family: "Raleway", sans-serif;
+    box-sizing: border-box;
 }
 
 :root {
@@ -152,7 +153,8 @@ button {
         z-index: -1;
         margin: -5px;
         border-radius: inherit;
-        background: linear-gradient( to right, var(--color--darkest--blue), var(--color--lightest--blue) );
+        background-image: linear-gradient( var(--color--darkest--blue), var(--color--lightest--blue) );
+        /*background: linear-gradient( to right, var(--color--darkest--blue), var(--color--lightest--blue) );*/
     }
 
 .card--title {
@@ -356,7 +358,9 @@ button {
     border-bottom: 1.5px solid var(--color--darkest--blue);
 }
 
-.custom--nav--item {
+.custom--navbar  .custom--nav--item {
+    font-weight: 900;
+    font-size: 20px;
     color: black;
 }
 
@@ -364,15 +368,14 @@ button {
     background-color: transparent;
     border-bottom: none;
     border-color: transparent !important;
-    font-weight: 900 !important;
     color: var(--color--darkest--blue) !important;
 }
 
 .custom--navbar .nav-item a:hover {
     font-weight: 900;
-    border: none;
+    border-bottom: 1.5px solid transparent;
     border-color: transparent;
-    color: black;
+    color: var(--color--darkest--blue) !important
 }
 
 
@@ -558,12 +561,11 @@ main {
     }
 }
 
-.test-button{
+.test-button {
     position: absolute;
-    bottom:0;
-    margin-bottom:-22.5px;
+    bottom: 0;
+    margin-bottom: -22.5px;
 }
-
 
 .login {
     -webkit-box-pack: center;
@@ -595,3 +597,28 @@ main {
 .login--main {
     background-color: var(--babotest-purple-color);
 }
+
+
+/* Visycard hover */
+.visycard__hover .visycard:hover {
+    transition: all 300ms ease-in-out;
+    background: var(--color--lightest--blue);
+    z-index: 2;
+}
+
+    .visycard__hover .visycard:hover > * {
+        color: white;
+    }
+
+    .visycard__hover .visycard:hover .card--separator {
+        background: #fff;
+    }
+
+    .visycard__hover .visycard:hover .card--content--row--badge {
+        background: #fff;
+        color: var(--color--dark--blue);
+    }
+
+    .visycard__hover .visycard:hover .card--content--label {
+        border: 1px solid #fff;
+    }

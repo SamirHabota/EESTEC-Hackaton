@@ -280,3 +280,27 @@ button {
     margin-left: 25%;
     margin-left: 20%;
 }
+
+.visycard {
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    color: black;
+    background: white;
+    background-clip: padding-box;
+    border: solid 5px transparent;
+    border-radius: 1em;
+    text-align: center;
+    width: 28%;
+    height: 600px;
+}
+
+.card-test{
+    height: auto;
+    padding: 20px;
+    width: auto;
+}
+
+.icon-medium{
+    width:50px;
+}

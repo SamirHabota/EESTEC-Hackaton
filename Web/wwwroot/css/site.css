@@ -123,7 +123,7 @@ button {
     font-weight: 900;
 }
 
-.card {
+.visycard {
     display: block;
     position: relative;
     box-sizing: border-box;
@@ -137,7 +137,7 @@ button {
     height: 600px;
 }
 
-    .card:before {
+    .visycard:before {
         content: "";
         position: absolute;
         top: 0;

@@ -1,0 +1,41 @@
+﻿@model Web.Viewmodels.Quiz.SelectLecturesVM
+
+@{
+    ViewData["Title"] = "Quiz";
+    Layout = "_Layout";
+}
+
+<div class="card-deck col-md-4 col-12 visycard m-auto text-center">
+    <!-- Header -->
+    <h1 class="my-1"><b>Build</b> your <b>quiz</b></h1>
+
+    <!-- Deck image -->
+    <img src="~/img/icons/Quiz.svg" class="icon-medium my-3" />
+
+    <!-- Subheading -->
+    <h4 class="my-1 mb-4">
+        Choose the lectures or even the complete subject.
+        <b>How much did you learn ?</b>
+    </h4>
+    <form asp-action="Generate" asp-controller="Quiz" method="POST" class="mb-4">
+        @foreach(var item in Model.Subjects){
+        <div class="border-2 border rounded border-primary px-4 py-2 text-left mt-2">
+            <div href=".subject-@item.Id" data-toggle="collapse">
+                <b class="ml-1">@item.Name</b>
+                <span class="float-right fas fa-chevron-down mt-1"></span>
+            </div>
+            <div class=" pl-3 collapse hide subject-@item.Id">
+                @foreach(var lecture in item.Lectures){
+                    <div>
+                        <input type="checkbox" id="checkbox-@lecture.Id" name="Lectures" value="@lecture.Id"/>
+                        <label class="form-check-label" for="checkbox-@lecture.Id">
+                            <b class="ml-1">@lecture.Name</b>
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+        }
+        <button type="submit" class="px-4 py-2 mt-2 test-button start-button">START</button>
+    </form>
+</div>

@@ -4,14 +4,16 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Data.Migrations
 {
     [DbContext(typeof(VisyLrnContext))]
-    partial class VisyLrnContextModelSnapshot : ModelSnapshot
+    [Migration("20191222015511_Quiz")]
+    partial class Quiz
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -357,8 +359,6 @@ namespace Data.Migrations
                     b.Property<DateTime>("BeginDate");
 
                     b.Property<DateTime>("EndDate");
-
-                    b.Property<double>("QuestionPoints");
 
                     b.Property<double>("TotalScore");
 

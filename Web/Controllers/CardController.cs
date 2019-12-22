@@ -14,8 +14,33 @@ namespace Web.Controllers
     {
 
         private readonly VisyLrnContext _context;
-        public CardController(VisyLrnContext context) {
+        public CardController(VisyLrnContext context)
+        {
             _context = context;
+        }
+
+        public IActionResult SelectLectures()
+        {
+            var List = _context.Subject.Include(i => i.Lecture).Where(w => w.Account.NormalizedUserName == HttpContext.User.Identity.Name.ToUpper()).ToList();
+            var Model = new Viewmodels.Quiz.SelectLecturesVM
+            {
+                Subjects = new List<Viewmodels.Quiz.SelectLecturesVM.Subject>()
+            };
+            foreach (var item in List)
+            {
+                Model.Subjects.Add(new Viewmodels.Quiz.SelectLecturesVM.Subject
+                {
+                    Name = item.Name,
+                    Id = item.Id,
+                    Lectures = item.Lecture.Select(s => new Viewmodels.Quiz.SelectLecturesVM.Lecture
+                    {
+                        Name = s.Name,
+                        Id = s.Id
+                    }).ToList()
+                });
+            }
+
+            return View(Model);
         }
 
         public IActionResult Index(int[] lectures)
@@ -23,27 +48,32 @@ namespace Web.Controllers
 
             List<Lecture> list = new List<Lecture>();
 
-            foreach(var lectureId in lectures) {
+            foreach (var lectureId in lectures)
+            {
                 var lec = _context.Lecture.Include(l => l.Subject).Single(l => l.Id == lectureId);
                 list.Add(lec);
             }
 
             var noDups = list.GroupBy(x => x.SubjectId).Select(x => x.First()).ToList();
 
-            var returnModel = new LecturesVM() {
-                Lectures= list,
-                NoDups=noDups
+            var returnModel = new LecturesVM()
+            {
+                Lectures = list,
+                NoDups = noDups
             };
 
             return View(returnModel);
         }
 
-        public IActionResult ShowNextCard(int[] lectures, int currentCardId, int priority) {
+        public IActionResult ShowNextCard(int[] lectures, int currentCardId, int priority)
+        {
 
-            if (currentCardId != 0) {
+            if (currentCardId != 0)
+            {
                 _context.Card.Find(currentCardId).LastShwon = DateTime.Now;
                 Priority finalPriority = Priority.Low;
-                switch (priority) {
+                switch (priority)
+                {
                     case 0:
                         finalPriority = Priority.Low;
                         break;
@@ -59,8 +89,10 @@ namespace Web.Controllers
             }
 
             List<Card> allCards = new List<Card>();
-            foreach (var lectureId in lectures) {
-                foreach (var card in _context.Card.ToList()) {
+            foreach (var lectureId in lectures)
+            {
+                foreach (var card in _context.Card.ToList())
+                {
                     if (card.LectureId == lectureId) allCards.Add(card);
                 }
             }
@@ -69,13 +101,14 @@ namespace Web.Controllers
             var theCard = _context.Card.Include(c => c.Lecture).Single(c => c.Id == allCards[0].Id);
 
 
-            
+
             //napravi sta ako je prazno
-            var returnModel = new QuestionAnswerVM() {
-                Answer=allCards[0].Answer,
-                Question=allCards[0].Question,
-                CardId=allCards[0].Id,
-                Lecture= theCard.Lecture.Name
+            var returnModel = new QuestionAnswerVM()
+            {
+                Answer = allCards[0].Answer,
+                Question = allCards[0].Question,
+                CardId = allCards[0].Id,
+                Lecture = theCard.Lecture.Name
             };
 
 

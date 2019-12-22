@@ -1,15 +1,10 @@
-﻿using System.Threading;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Data;
 using Data.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Web.Viewmodels.SharedVM;
-using Web.Viewmodels.UserVM;
 
 namespace Web.Controllers
 {
@@ -117,7 +112,7 @@ namespace Web.Controllers
                     Test.isFinished = true;
                     Test.EndDate = DateTime.Now;
                     _context.SaveChanges();
-                    return RedirectToAction("Result", Test.Id);
+                    return PartialView("Result", Test.TotalScore);
                 }
             }
 
@@ -138,11 +133,6 @@ namespace Web.Controllers
             };
 
             return PartialView("QuizQuestion", Model);
-        }
-
-        public IActionResult Result(int testId)
-        {
-            return View(_context.Test.Where(w=>w.Id == testId).FirstOrDefault().TotalScore);
         }
     }
 }

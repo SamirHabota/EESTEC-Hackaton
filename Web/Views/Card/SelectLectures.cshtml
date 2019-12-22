@@ -5,7 +5,7 @@
     Layout = "_Layout";
 }
 
-<div class="card-deck col-md-4 col-12 visycard m-auto text-center>
+<div class="card-deck col-md-4 col-12 visycard m-auto text-center">
     <!-- Header -->
     <h1 class="my-1"><b>Build</b> your <b>deck</b></h1>
 
@@ -17,7 +17,7 @@
         Choose the lectures or even the complete subject and
         <b>start studying now!</b>
     </h4>
-    <form asp-action="StartQuiz" asp-controller="Quiz" method="POST" class="mb-4">
+    <form asp-action="Index" asp-controller="Card" method="POST" class="mb-4">
         @foreach(var item in Model.Subjects){
         <div class="border-2 border rounded border-primary px-4 py-2 text-left mt-2">
             <div href=".subject-@item.Id" data-toggle="collapse">

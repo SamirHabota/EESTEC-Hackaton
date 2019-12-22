@@ -6,6 +6,7 @@ using Data;
 using Data.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Web.Viewmodels.SharedVM;
 using Web.Viewmodels.UserVM;
@@ -29,14 +30,15 @@ namespace Web.Controllers
             var model = new IndexVM();
             var account = new Account();
 
-            //account = string.IsNullOrEmpty(username) ? 
-            //    _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper()) : 
-            //    _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.NormalizedUserName == username.ToUpper());
 
             account = string.IsNullOrEmpty(username) ?
-                _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper()):
+                _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper()) :
                 _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.NormalizedUserName == username.ToUpper());
-            //account = _context.Account.Include(a=>a.Organization).FirstOrDefault();
+            model.Organizations = _context.Organization.Select(o => new SelectListItem
+            {
+                Text = o.Name,
+                Value = o.Id.ToString()
+            }).ToList();
 
             model.Subjects = _context.Subject.Where(s => s.AccountId == account.Id).Select(
                 s => new SubjectVM
@@ -52,8 +54,10 @@ namespace Web.Controllers
 
                 }).ToList();
 
+
             model.User = new UserDataVM
             {
+                Username = account.UserName,
                 FirstName = account.FirstName,
                 LastName = account.LastName,
                 AvatarLink = account.AvatarLink,
@@ -76,6 +80,7 @@ namespace Web.Controllers
             model.Id = subject.Id;
             model.User = new UserDataVM
             {
+                Username = account.UserName,
                 FirstName = account.FirstName,
                 LastName = account.LastName,
                 AvatarLink = account.AvatarLink,
@@ -105,6 +110,7 @@ namespace Web.Controllers
                           _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper());
             model.User = new UserDataVM
             {
+                Username = account.UserName,
                 FirstName = account.FirstName,
                 LastName = account.LastName,
                 AvatarLink = account.AvatarLink,
@@ -255,8 +261,8 @@ namespace Web.Controllers
 
         public IActionResult StealSubject(int id)
         {
-            var subject = _context.Subject.FirstOrDefault(s => s.Id == id);
-            var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a=>a.UserName == HttpContext.User.Identity.Name.ToUpper());
+            var subject = _context.Subject.Include(s => s.Lecture).ThenInclude(l => l.Card).FirstOrDefault(s => s.Id == id);
+            var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper());
 
             var steal = new Subject
             {
@@ -270,13 +276,63 @@ namespace Web.Controllers
                 SyllabusPath = subject.SyllabusPath
             };
 
+            var lectures = subject.Lecture.ToList();
+            var originalAuthorId = "";
+            foreach (var lecture in lectures)
+            {
+                if (lecture.Card.Count != 0)
+                {
+                    originalAuthorId = lecture.Card.First().OriginalAuthorId;
+                    break;
+                }
+            }
+
+            var author = _context.Account.Single(a => a.Id == originalAuthorId);
+            author.VisyPoints += 10;
+
             _context.Add(steal);
             _context.SaveChanges();
 
-            return Ok();
+            return Redirect("/");
+        }
+        
+        public IActionResult AddSubject(AddSubjectVM model)
+        {
+
+            var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper());
+
+            var subject = new Subject
+            {
+                AccountId = account.Id,
+                Description = model.Description,
+                Ects = model.Ects,
+                Name = model.Name,
+                Professor = model.Professor,
+                SyllabusPath = model.SyllabusPath,
+                OrganizationId = model.OrganizationId,
+                SemesterNumber = model.SemesterNumber
+            };
+
+            _context.Add(subject);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", subject.Id);
         }
 
+        public IActionResult AddLecture(AddLectureVM model)
+        {
+            var lecture = new Lecture
+            {
+                SubjectId = model.Id,
+                Name = model.Name,
+                Number = model.Number
+            };
 
+            _context.Add(lecture);
+            _context.SaveChanges();
+
+            return Redirect($"/User/Subject?id={lecture.SubjectId}");
+        }
 
         [Route("InitDB")]
         public async Task<bool> InitDb()

@@ -21,13 +21,16 @@
                 <h3 class="page--subtitle mb-5">Learn with <b>@Model.User.FirstName</b></h3>
             </div>
 
-            <a asp-action="StealSubject" asp-route-id="@Model.Id" class="steal--button text-dark" style="width: auto;padding-right: 15px;">
-                <img class="steal--icon" src="/img/icons/grab.png" />
-                <div class="steal--text--holder">
-                    <p class="steal--title">Steal</p>
-                    <p>*legally</p>
-                </div>
-            </a>
+            @if (!string.Equals(Context.User.Identity.Name, Model.User.Username, StringComparison.InvariantCultureIgnoreCase))
+            {
+                <a asp-action="StealSubject" asp-route-id="@Model.Id" class="steal--button text-dark" style="width: auto; padding-right: 15px;">
+                    <img class="steal--icon" src="/img/icons/grab.png" />
+                    <div class="steal--text--holder">
+                        <p class="steal--title">Steal</p>
+                        <p>*legally</p>
+                    </div>
+                </a>
+            }
         </div>
 
         <h3 class="mb-3"><b>Select a lecture</b></h3>
@@ -62,8 +65,49 @@
                 }
             }
 
+            @if (string.Equals(Context.User.Identity.Name, Model.User.Username, StringComparison.InvariantCultureIgnoreCase))
+            {
+
+                <a data-toggle="modal" data-target="#addQuestion" style="cursor: pointer;" class="visycard__hover d-block col-md-3 col-12 text-decoration-none">
+
+                    <div class="visycard">
+
+                        <h4 class="card--title mb-0 align-items-center d-flex justify-content-center"><b>Add a new lecture</b> <i style="font-size: 25px; color: #184894;" class="fas fa-plus ml-4"></i></h4>
+
+
+                    </div>
+                </a>
+            }
         </div>
 
     </div>
 </div>
 
+<!-- Add lecture-->
+<div class="modal fade" id="addQuestion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new lecture</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="AddLecture" method="post">
+                <div class="modal-body">
+                    @{ Model.Name = "";}
+                    <input type="text" class="form-control" placeholder="Name" asp-for="@Model.Name" />
+                    <input type="text" class="form-control mt-2" placeholder="Ordinal number" asp-for="@Model.Number" />
+
+                    <input type="hidden" class="form-control" placeholder="Answer" asp-for="@Model.Id">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                    <button type="submit" class="btn background--darkest-blue text-white">Add lecture</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

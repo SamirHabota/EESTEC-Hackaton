@@ -9,5 +9,7 @@
         public int WordCount { get; set; }
         public int CharCount { get; set; }
         public string Author { get; set; }
+        public string DocPath { get; set; }
+
     }
 }

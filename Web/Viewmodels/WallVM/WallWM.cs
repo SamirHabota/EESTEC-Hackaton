@@ -9,6 +9,6 @@ namespace Web.Viewmodels.WallVM
     public class WallWM
     {
         public List<Group> Groups { get; set; }
-        public List<Account> Accounts { get; set; }
+        public List<Data.Models.Account> Accounts { get; set; }
     }
 }

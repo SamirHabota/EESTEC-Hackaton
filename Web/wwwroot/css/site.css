@@ -573,6 +573,38 @@ main {
     margin-bottom: -22.5px;
 }
 
+.login {
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    min-height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.login__box--wide {
+    width: 550px;
+}
+
+.login__box--narrow {
+    width: 450px;
+}
+
+.login__box {
+    background: #fff;
+    height: auto;
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+    border: 3px solid var(--babotest-purple-color);
+}
+
+.login--main {
+    background-color: var(--babotest-purple-color);
+}
+
+
 /* Visycard hover */
 .visycard__hover .visycard:hover {
     transition: all 300ms ease-in-out;

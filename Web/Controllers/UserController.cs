@@ -34,7 +34,7 @@ namespace Web.Controllers
             //    _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.NormalizedUserName == username.ToUpper());
 
             account = string.IsNullOrEmpty(username) ?
-                _context.Account.Include(a => a.Organization).FirstOrDefault() :
+                _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper()):
                 _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.NormalizedUserName == username.ToUpper());
             //account = _context.Account.Include(a=>a.Organization).FirstOrDefault();
 
@@ -70,10 +70,10 @@ namespace Web.Controllers
             var subject = _context.Subject.FirstOrDefault(s => s.Id == id);
 
             var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.Id == subject.AccountId) ??
-                          _context.Account.Include(a => a.Organization).FirstOrDefault();
+                          _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper());
 
             model.Name = subject?.Name;
-
+            model.Id = subject.Id;
             model.User = new UserDataVM
             {
                 FirstName = account.FirstName,
@@ -102,7 +102,7 @@ namespace Web.Controllers
             var lecture = _context.Lecture.Include(l => l.Subject).FirstOrDefault(s => s.Id == id);
 
             var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.Id == lecture.Subject.AccountId) ??
-                          _context.Account.Include(a => a.Organization).FirstOrDefault();
+                          _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper());
             model.User = new UserDataVM
             {
                 FirstName = account.FirstName,
@@ -242,6 +242,41 @@ namespace Web.Controllers
 
             return Redirect($"/User/Lecture?id={lecture.Id}");
         }
+
+        public IActionResult StealLecture(int id)
+        {
+            var lecture = _context.Lecture.Include(l => l.Subject).FirstOrDefault(s => s.Id == id);
+            var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper());
+
+
+            return Ok();
+
+        }
+
+        public IActionResult StealSubject(int id)
+        {
+            var subject = _context.Subject.FirstOrDefault(s => s.Id == id);
+            var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a=>a.UserName == HttpContext.User.Identity.Name.ToUpper());
+
+            var steal = new Subject
+            {
+                AccountId = account.Id,
+                Description = subject.Description,
+                Ects = subject.Ects,
+                Name = subject.Name,
+                Professor = subject.Professor,
+                SemesterNumber = subject.SemesterNumber,
+                OrganizationId = subject.OrganizationId,
+                SyllabusPath = subject.SyllabusPath
+            };
+
+            _context.Add(steal);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+
 
         [Route("InitDB")]
         public async Task<bool> InitDb()

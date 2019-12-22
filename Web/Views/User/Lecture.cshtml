@@ -13,10 +13,22 @@
 
 <div class="col-md-9 col-12">
     <div class="main--content">
+        <div class="d-flex justify-content-between">
+            <div class="title ">
 
-        <h1 class="page--title">Subject <b>@Model.SubjectName</b>, lecture <b>@Model.LectureName</b> </h1>
-        <h3 class="page--subtitle mb-5">Learn with <b>@Model.User.FirstName</b></h3>
+                <h1 class="page--title">Subject <b>@Model.SubjectName</b>, lecture <b>@Model.LectureName</b> </h1>
+                <h3 class="page--subtitle mb-5">Learn with <b>@Model.User.FirstName</b></h3>
+            </div>
 
+            <a asp-action="StealLecture" asp-route-id="@Model.Id" class="steal--button" style="width: auto;padding-right: 15px;">
+                <img class="steal--icon" src="/img/icons/grab.png" />
+                <div class="steal--text--holder">
+                    <p class="steal--title">Steal</p>
+                    <p>*legally</p>
+                </div>
+            </a>
+
+        </div>
         <ul class="custom--navbar nav nav-tabs" id="myTab" role="tablist">
 
             <li class="nav-item">

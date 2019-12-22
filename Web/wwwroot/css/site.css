@@ -1,4 +1,5 @@
-﻿@import url("https://fonts.googleapis.com/css?family=Raleway:400,600,700&display=swap");
+﻿
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,600,700&display=swap");
 
 * {
     font-size: 100%;
@@ -402,10 +403,18 @@ main {
     height: 60px;
 }
 
-.steal--icon {
-    height: 37px;
-    margin: 10px;
-}
+    .steal--button:hover {
+        border: 1px solid #e73841;
+        background-color: rgba(231,56,65,0.4);
+    }
+        .steal--button:hover .steal--icon {
+            transition: 300ms all ease-in-out;
+            transform: translateY(-5px);
+        }
+    .steal--icon {
+        height: 37px;
+        margin: 10px;
+    }
 
 .steal--text--holder {
     margin: 5px 0 5px;

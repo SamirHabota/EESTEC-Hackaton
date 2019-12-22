@@ -10,6 +10,7 @@ namespace Web.Viewmodels.UserVM
     {
         public UserDataVM User { get; set; }
         public string Name { get; set; }
+        public int Id { get; set; }
 
         public List<LectureVM> Lectures { get; set; }
 

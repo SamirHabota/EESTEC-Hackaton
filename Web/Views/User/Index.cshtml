@@ -17,9 +17,10 @@
             @{
                 foreach (var subject in Model.Subjects)
                 {
+                    <a class="visycard__hover d-block col-md-4 col-12 text-decoration-none" asp-action="Subject" asp-route-id="@subject.Id">
 
-                    <div class="col-md-4 col-12">
-                        <div class="visycard ">
+                        <div class="visycard">
+
                             <h2 class="card--title"><b>@subject.Title</b></h2>
                             <hr class="card--separator" />
                             <h4 class="card--professor">@subject.Professor</h4>
@@ -51,11 +52,58 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 }
             }
+        @if (string.Equals(Context.User.Identity.Name, Model.User.Username, StringComparison.InvariantCultureIgnoreCase))
+        {
+            <a data-toggle="modal" data-target="#addSubject" style="cursor: pointer;" class="visycard__hover d-block col-md-3 col-12 text-decoration-none">
 
+                <div class="visycard">
+
+                    <h4 class="card--title mb-0 align-items-center d-flex justify-content-center"><b>Add a new subject</b> <i style="font-size: 25px; color: #184894;" class="fas fa-plus ml-4"></i></h4>
+
+
+                </div>
+            </a>
+        }
         </div>
 
+    </div>
+</div>
+
+<!-- Add subject -->
+<div class="modal fade" id="addSubject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new card</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="AddSubject" method="post">
+                <div class="modal-body">
+
+                    <input type="text" class="form-control" placeholder="Name" asp-for="@Model.Name">
+
+                    <input type="text" class="form-control mt-2" placeholder="Description" asp-for="@Model.Description" />
+                    <input type="number" class="form-control mt-2" placeholder="Ects" asp-for="@Model.Ects" />
+                    <input type="text" class="form-control mt-2" placeholder="Professor" asp-for="@Model.Professor" />
+                    <input type="number" class="form-control mt-2" placeholder="Semester Number" asp-for="@Model.SemesterNumber" />
+                    <input type="text" class="form-control mt-2" placeholder="Syllabus Path" asp-for="@Model.SyllabusPath" />
+                    <select class="mt-2" asp-for="@Model.OrganizationId" asp-items="@Model.Organizations">
+                        <option selected value="">Choose organization</option>
+                    </select>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                    <button type="submit" class="btn background--darkest-blue text-white">Add card</button>
+                </div>
+
+            </form>
+        </div>
     </div>
 </div>

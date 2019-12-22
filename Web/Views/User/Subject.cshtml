@@ -1,0 +1,113 @@
+﻿@model Web.Viewmodels.UserVM.SubjectDetailsVM
+
+@{
+    ViewBag.Title = "Subject";
+    Layout = "_Layout";
+}
+
+<div class="col-md-3 col-12" style="margin-right: 15px; margin-left: -15px;">
+    <partial name="PartialViews/UserSidebar" model="@Model.User" />
+</div>
+
+
+
+<div class="col-md-9 col-12">
+    <div class="main--content">
+
+        <div class="d-flex justify-content-between">
+
+            <div class="title ">
+                <h1 class="page--title">Subject <b>@Model.Name</b></h1>
+                <h3 class="page--subtitle mb-5">Learn with <b>@Model.User.FirstName</b></h3>
+            </div>
+
+            @if (!string.Equals(Context.User.Identity.Name, Model.User.Username, StringComparison.InvariantCultureIgnoreCase))
+            {
+                <a asp-action="StealSubject" asp-route-id="@Model.Id" class="steal--button text-dark" style="width: auto; padding-right: 15px;">
+                    <img class="steal--icon" src="/img/icons/grab.png" />
+                    <div class="steal--text--holder">
+                        <p class="steal--title">Steal</p>
+                        <p>*legally</p>
+                    </div>
+                </a>
+            }
+        </div>
+
+        <h3 class="mb-3"><b>Select a lecture</b></h3>
+        <div class="row">
+            @{
+                foreach (var lecture in Model.Lectures)
+                {
+                    <a class="visycard__hover d-block col-md-4 col-12 text-decoration-none" asp-action="Lecture" asp-route-id="@lecture.Id">
+
+                        <div class="visycard">
+
+                            <h2 class="card--title"><b>@lecture.Name</b></h2>
+                            <hr class="card--separator" />
+
+                            <div class="card--content">
+
+                                <div class="card--content--row">
+                                    <h3 class="card--content--row--title">Cards</h3>
+                                    <p class="card--content--row--badge">@lecture.CardsCount</p>
+                                </div>
+                                <div class="card--content--row">
+                                    <h3 class="card--content--row--title">Documents</h3>
+                                    <p class="card--content--row--badge">@lecture.DocumentCount</p>
+                                </div>
+                                <div class="card--content--row">
+                                    <h3 class="card--content--row--title">Questions</h3>
+                                    <p class="card--content--row--badge">@lecture.QuestionCount</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+            }
+
+            @if (string.Equals(Context.User.Identity.Name, Model.User.Username, StringComparison.InvariantCultureIgnoreCase))
+            {
+
+                <a data-toggle="modal" data-target="#addQuestion" style="cursor: pointer;" class="visycard__hover d-block col-md-3 col-12 text-decoration-none">
+
+                    <div class="visycard">
+
+                        <h4 class="card--title mb-0 align-items-center d-flex justify-content-center"><b>Add a new lecture</b> <i style="font-size: 25px; color: #184894;" class="fas fa-plus ml-4"></i></h4>
+
+
+                    </div>
+                </a>
+            }
+        </div>
+
+    </div>
+</div>
+
+<!-- Add lecture-->
+<div class="modal fade" id="addQuestion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new lecture</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="AddLecture" method="post">
+                <div class="modal-body">
+                    @{ Model.Name = "";}
+                    <input type="text" class="form-control" placeholder="Name" asp-for="@Model.Name" />
+                    <input type="text" class="form-control mt-2" placeholder="Ordinal number" asp-for="@Model.Number" />
+
+                    <input type="hidden" class="form-control" placeholder="Answer" asp-for="@Model.Id">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                    <button type="submit" class="btn background--darkest-blue text-white">Add lecture</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Web.Viewmodels.SharedVM;
 
 namespace Web.Viewmodels.UserVM
@@ -32,6 +33,11 @@ namespace Web.Viewmodels.UserVM
         public bool IsAnswerTwo { get; set; }
         public bool IsAnswerThree { get; set; }
         public bool IsAnswerFour { get; set; }
+
+
+        public string Title { get; set; }
+        public IFormFile File { get; set; }
+        public string Description { get; set; }
 
     }
 }

@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Web.Helper;
+using Web.Viewmodels;
 using Web.Viewmodels.SharedVM;
 using Web.Viewmodels.UserVM;
 
@@ -339,6 +341,27 @@ namespace Web.Controllers
 
             return Redirect($"/User/Subject?id={lecture.SubjectId}");
         }
+
+        public async Task<IActionResult> AddDocument(NewDocumentVM model)
+        {
+
+            var fileNameExtension =await new FileUpload().DocumentFolder(model.File);
+
+            var doc = new Document
+            {
+                Title = model.Title,
+                Description = model.Description,
+                DocumentPath = fileNameExtension.First().Key,
+                Extension = fileNameExtension.First().Value,
+                LectureId = model.Id, 
+                OriginalAuthor = _context.Account.First(a => a.UserName == HttpContext.User.Identity.Name.ToUpper()).UserName
+            };
+
+            _context.Add(doc);
+            _context.SaveChanges();
+            return Redirect($"/User/Lecture?id={model.Id}");
+        }
+
 
         [Route("InitDB")]
         public async Task<bool> InitDb()

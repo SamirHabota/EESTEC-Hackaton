@@ -19,16 +19,16 @@
                 <h1 class="page--title">Subject <b>@Model.SubjectName</b>, lecture <b>@Model.LectureName</b> </h1>
                 <h3 class="page--subtitle mb-5">Learn with <b>@Model.User.FirstName</b></h3>
             </div>
-        @if (!string.Equals(Context.User.Identity.Name, Model.User.Username, StringComparison.InvariantCultureIgnoreCase))
-        {
-            <a asp-action="StealLecture" asp-route-id="@Model.Id" class="steal--button" style="width: auto; padding-right: 15px;">
-                <img class="steal--icon" src="/img/icons/grab.png"/>
-                <div class="steal--text--holder">
-                    <p class="steal--title">Steal</p>
-                    <p>*legally</p>
-                </div>
-            </a>
-        }
+            @if (!string.Equals(Context.User.Identity.Name, Model.User.Username, StringComparison.InvariantCultureIgnoreCase))
+            {
+                <a asp-action="StealLecture" asp-route-id="@Model.Id" class="steal--button" style="width: auto; padding-right: 15px;">
+                    <img class="steal--icon" src="/img/icons/grab.png" />
+                    <div class="steal--text--holder">
+                        <p class="steal--title">Steal</p>
+                        <p>*legally</p>
+                    </div>
+                </a>
+            }
         </div>
         <ul class="custom--navbar nav nav-tabs" id="myTab" role="tablist">
 
@@ -140,6 +140,18 @@
                             </a>
                         }
                     }
+                    @if (string.Equals(Context.User.Identity.Name, Model.User.Username, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        <a data-toggle="modal" data-target="#addDocument" style="cursor: pointer;" class="visycard__hover d-block col-md-3 col-12 text-decoration-none">
+
+                            <div class="visycard">
+
+                                <h4 class="card--title mb-0 align-items-center d-flex justify-content-center"><b>Add a new document</b> <i style="font-size: 25px; color: #184894;" class="fas fa-plus ml-4"></i></h4>
+
+
+                            </div>
+                        </a>
+                    }
                 </div>
 
             </div>
@@ -222,7 +234,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add new questioon</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add new question</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -264,10 +276,44 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
-                    <button type="submit" class="btn background--darkest-blue text-white">Add card</button>
+                    <button type="submit" class="btn background--darkest-blue text-white">Add question</button>
                 </div>
 
             </form>
         </div>
     </div>
 </div>
+
+<!-- Add documents-->
+<div class="modal fade" id="addDocument" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Upload document</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="AddDocument" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+
+
+
+                    <input type="text" class="form-control mt-2" placeholder="Title" asp-for="@Model.Title" />
+                    <input type="text" class="form-control mt-2" placeholder="Description" asp-for="@Model.Description" />
+
+                    <input asp-for="File" class="mt-4" type="file" accept="pdf,doc,md" >
+
+                    <input type="hidden" class="form-control " placeholder="Id" asp-for="@Model.Id">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                    <button type="submit" class="btn background--darkest-blue text-white">Upload</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+

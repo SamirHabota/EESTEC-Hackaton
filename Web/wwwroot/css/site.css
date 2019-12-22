@@ -605,7 +605,7 @@ main {
 
 .visy--cool-border__onCard {
     margin: 0;
-    height: 350px;
+    min-height: 350px;
     width: 260px;
     margin-right: 60px;
     margin-left: 50px;
@@ -645,6 +645,16 @@ main {
     border-radius: 100%;
     border: 1px solid var(--color--light--blue);
 }
+.wall--new-post input{
+    border-radius: 15px;
+    border: 1px solid var(--color--dark--blue);
+}
+
+.wall--new-post a i{
+    font-size: 25px;
+    color: var(--color--dark--blue);
+}
+
 .post {
     background: var(--color--lightest--blue);
     padding: 5px 15px;

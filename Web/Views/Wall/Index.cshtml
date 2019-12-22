@@ -7,63 +7,79 @@
     <h1 style="text-align:center; margin-bottom: 30px;"><b>Visy</b>Feed</h1>
     <div class="wall--group--holder visy--cool-border">
 
-        @foreach (var group in Model.Groups) {
+        @foreach (var group in Model.Groups)
+        {
             <h3 class="wall--group--title">@group.Name</h3>
-            <div class="d-flex">
-                <input class="form-control" style="margin-bottom: 20px" id="postId" />
-                <a class="btn btn-primary" onclick="post(@group.Id)"><i class="fas fa-paper-plane"></i></a>
+            <h4>Add new post</h4>
+            <div class="d-flex wall--new-post mb-4">
+                <input placeholder="Write your question" class="form-control" style="margin-bottom: 20px" id="postId" />
+                <a class="btn" onclick="post(@group.Id)"><i class="fas fa-paper-plane"></i></a>
             </div>
-
-            foreach (var post in group.Post) {
+            foreach (var post in group.Post)
+            {
                 var name = "";
                 var imageLink = "";
-                foreach (var acc in Model.Accounts) {
-                    if (post.AccountId == acc.Id) {
+                var username = "";
+                foreach (var acc in Model.Accounts)
+                {
+                    if (post.AccountId == acc.Id)
+                    {
                         name = acc.FirstName + " " + acc.LastName;
                         imageLink = acc.AvatarLink;
+                        username = acc.UserName;
                         break;
                     }
                 }
 
                 <div class="post d-flex align-items-center mb-2">
-                    <div class="text-center mr-2">
+                    <a class="text-center mr-2 ml-2" asp-controller="User" asp-action="Index" asp-route-username="@username">
                         <img class="wall--profile--image" src="~/img/users/@imageLink" />
-                        <p class="mb-0 ml-4"><b>@name</b></p>
-                    </div>
+                        <p class="mb-0 "><b>@name</b></p>
+                    </a>
                     <div>
-                        <h4 class="ml-3">@post.Text</h4>
+                        <h3 class="ml-4"><b>@post.Text</b></h3>
                     </div>
                 </div>
 
-                foreach (var comm in post.Comment) {
+                foreach (var comm in post.Comment)
+                {
                     var commName = "";
                     var commImageLink = "";
-                    foreach (var acc in Model.Accounts) {
-                        if (comm.AccountId == acc.Id) {
+                    var usernameComm = "";
+                    foreach (var acc in Model.Accounts)
+                    {
+                        if (comm.AccountId == acc.Id)
+                        {
                             commName = acc.FirstName + " " + acc.LastName;
                             commImageLink = acc.AvatarLink;
+                            usernameComm = acc.UserName;
                             break;
                         }
                     }
                     <div class="comment position-relative mb-2" style="display: flex; margin-left: 100px;">
-                        <div class="text-center">
+                        <a class="text-left d-flex align-items-center" asp-controller="User" asp-action="Index" asp-route-username="@username">
                             <img class="wall--profile--image__small" src="~/img/users/@commImageLink" />
-                            <p class="mb-0"><b>@name</b></p>
-                        </div>
-                        <div>
-                            <p class="mb-0 ml-4"><b>@comm.Text</b></p>
+                            <p class="mb-0 ml-3"><b>@commName</b></p>
+                        </a>
+                        <div class="d-flex align-items-center">
+                            <h4 class="mb-0 ml-4">@comm.Text</h4>
                         </div>
                         <span style="position: absolute;right: 100px; top: 23px;">@(comm.Likes.Count - comm.Dislikes.Count)</span>
-                        <div style="position: absolute;right: 20px; top: 23px;">
+                        <div style="position: absolute; right: 20px; top: 10px;">
                             <a asp-controller="Wall" asp-action="Like" asp-route-commentId="@comm.Id"><i style="font-size: 25px;" class="fas fa-chevron-up @(Model.LikedComms.Contains(comm.Id) ? "text-success" : string.Empty )"></i></a>
-                            <a asp-controller="Wall" asp-action="Dislike" asp-route-commentId="@comm.Id"><i style="font-size: 25px;" class="fas fa-chevron-down @(Model.DislikedComms.Contains(comm.Id) ? "text-danger" : string.Empty )"></i></a>
+                            <a asp-controller="Wall" asp-action="Dislike" asp-route-commentId="@comm.Id"><i style="font-size: 25px;" class="fas fa-chevron-down@(Model.DislikedComms.Contains(comm.Id) ? "text-danger" : string.Empty )"></i></a>
                         </div>
                     </div>
 
                 }
-                <div class="d-flex">
-                    <input class="form-control" style="margin-bottom: 20px" id="commentId" />
-                    <a class="btn btn-primary" onclick="comment(@post.Id)"><i class="fas fa-paper-plane"></i></a>
+                
+                <div style="margin-left: 100px;">
+
+                <h4 class="mt-4">Add new comment</h4>
+                <div class="d-flex wall--new-post">
+                    <input placeholder="New comment" class="form-control  " style="margin-bottom: 20px" id="commentId" />
+                    <a class="btn" onclick="comment(@post.Id)"><i class="fas fa-paper-plane"></i></a>
+                </div>
                 </div>
                 <hr class="mb-4 border-none " style="opacity:0" />
             }
@@ -78,20 +94,20 @@
         var url = "/wall/AddPost?groupId=" + groupId + "&text=" + text;
         $.get(url, function (result) {
             location.reload();
-                }
-            );
+        }
+        );
     }
 
-       function comment(postId) {
+    function comment(postId) {
         var text = document.getElementById("commentId").value;
         if (text == "") return;
-           var url = "/wall/AddComment?postId=" + postId + "&text=" + text;
-           alert(url);
+        var url = "/wall/AddComment?postId=" + postId + "&text=" + text;
+        alert(url);
         $.get(url, function (result) {
             location.reload();
-                }
-            );
         }
+        );
+    }
 </script>
 
 

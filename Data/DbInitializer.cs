@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Models;
@@ -550,6 +551,49 @@ namespace Data
                                 comment3);
             context.SaveChanges();
             #endregion
+
+            #region Documens
+
+            var docs = new List<Document>
+            {
+                new Document
+                {
+                    Description = "Lorem ipsum sit amecit.",
+                    Title = "Mockups",
+                    DocumentPath = "0247fa97-c907-4e7d-8203-02325560384c.pdf",
+                    TypeId = 1,
+                    LectureId = 2,
+                    Extension = ".pdf",
+                    OriginalAuthor = "Adnan Čutura",
+                },
+                new Document
+                {
+                    Description = "Lorem ipsum sit amecit.",
+                    Title = "Pitching",
+                    DocumentPath = "ea11d31b-234f-4ce4-b19a-00e6942b9c67.md",
+                    TypeId = 1,
+                    LectureId = 2,
+                    Extension = ".md",
+                    OriginalAuthor = "Adnan Čutura",
+                },
+                new Document
+                {
+                    Description = "Lorem ipsum sit amecit.",
+                    Title = "OOP",
+                    DocumentPath = "bcbe9d20-2da7-4620-bb9a-5bd5a59ea47f.pdf",
+                    TypeId = 1,
+                    LectureId = 1,
+                    Extension = ".pdf",
+                    OriginalAuthor = "Adnan Čutura",
+                },
+
+            };
+
+            context.AddRange(docs);
+            context.SaveChanges();
+
+            #endregion
+
             return true;
         }
     }

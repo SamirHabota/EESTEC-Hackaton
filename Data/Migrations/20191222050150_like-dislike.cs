@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class likedislike : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,7 +28,7 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Type = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,8 +92,9 @@ namespace Data.Migrations
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     OrganizationId = table.Column<int>(nullable: false),
-                    Year = table.Column<string>(nullable: true),
-                    VisyPoints = table.Column<string>(nullable: true)
+                    Year = table.Column<int>(nullable: false),
+                    VisyPoints = table.Column<int>(nullable: true),
+                    AvatarLink = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -198,6 +199,7 @@ namespace Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CreatorId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
                     CreatorId1 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -218,6 +220,7 @@ namespace Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
                     OrganizationId = table.Column<int>(nullable: false),
                     AccountId = table.Column<string>(nullable: true),
                     SyllabusPath = table.Column<string>(nullable: true),
@@ -298,7 +301,8 @@ namespace Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Text = table.Column<string>(nullable: true),
                     AccountId = table.Column<string>(nullable: true),
-                    GroupId = table.Column<int>(nullable: false)
+                    GroupId = table.Column<int>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -346,7 +350,8 @@ namespace Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     PostId = table.Column<int>(nullable: false),
                     Text = table.Column<string>(nullable: true),
-                    AccountId = table.Column<string>(nullable: true)
+                    AccountId = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -374,7 +379,7 @@ namespace Data.Migrations
                     Question = table.Column<string>(nullable: true),
                     Answer = table.Column<string>(nullable: true),
                     LastShwon = table.Column<DateTime>(nullable: true),
-                    NextShowMin = table.Column<DateTime>(nullable: true),
+                    Priority = table.Column<int>(nullable: false),
                     OriginalAuthorId = table.Column<string>(nullable: true),
                     LectureId = table.Column<int>(nullable: false)
                 },
@@ -449,6 +454,64 @@ namespace Data.Migrations
                         name: "FK_Question_Lecture_LectureId",
                         column: x => x.LectureId,
                         principalTable: "Lecture",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Question_AspNetUsers_OriginalAuthorId",
+                        column: x => x.OriginalAuthorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Dislikes",
+                columns: table => new
+                {
+                    DislikeId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AccountId = table.Column<string>(nullable: true),
+                    CommentId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dislikes", x => x.DislikeId);
+                    table.ForeignKey(
+                        name: "FK_Dislikes_AspNetUsers_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Dislikes_Comment_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Likes",
+                columns: table => new
+                {
+                    LikeId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AccountId = table.Column<string>(nullable: true),
+                    CommentId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Likes", x => x.LikeId);
+                    table.ForeignKey(
+                        name: "FK_Likes_AspNetUsers_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Likes_Comment_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comment",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -580,6 +643,16 @@ namespace Data.Migrations
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Dislikes_AccountId",
+                table: "Dislikes",
+                column: "AccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Dislikes_CommentId",
+                table: "Dislikes",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Document_LectureId",
                 table: "Document",
                 column: "LectureId");
@@ -605,6 +678,16 @@ namespace Data.Migrations
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Likes_AccountId",
+                table: "Likes",
+                column: "AccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Likes_CommentId",
+                table: "Likes",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Post_AccountId",
                 table: "Post",
                 column: "AccountId");
@@ -618,6 +701,11 @@ namespace Data.Migrations
                 name: "IX_Question_LectureId",
                 table: "Question",
                 column: "LectureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Question_OriginalAuthorId",
+                table: "Question",
+                column: "OriginalAuthorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subject_AccountId",
@@ -672,10 +760,13 @@ namespace Data.Migrations
                 name: "Card");
 
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "Dislikes");
 
             migrationBuilder.DropTable(
                 name: "Document");
+
+            migrationBuilder.DropTable(
+                name: "Likes");
 
             migrationBuilder.DropTable(
                 name: "TestQuestion");
@@ -684,10 +775,10 @@ namespace Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Post");
+                name: "DocumetType");
 
             migrationBuilder.DropTable(
-                name: "DocumetType");
+                name: "Comment");
 
             migrationBuilder.DropTable(
                 name: "Question");
@@ -696,10 +787,13 @@ namespace Data.Migrations
                 name: "Test");
 
             migrationBuilder.DropTable(
-                name: "Group");
+                name: "Post");
 
             migrationBuilder.DropTable(
                 name: "Lecture");
+
+            migrationBuilder.DropTable(
+                name: "Group");
 
             migrationBuilder.DropTable(
                 name: "Subject");

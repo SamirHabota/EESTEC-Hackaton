@@ -1,0 +1,63 @@
+﻿@model Web.Viewmodels.CardVM.QuestionAnswerVM
+@{
+    ViewData["Title"] = "ShowNextCard";
+}
+
+<div id="cardId"
+     class="rotation--card col-md-6 col-11 d-flex justify-content-center"
+     onclick="flip()"
+     isFLipped="true">
+    <div class="visy--test front w-100">
+        <p class="visy--test--question">
+            @Model.Question
+        </p>
+        <div class="visy--cool-border visy--cool-border__small visy--hint"
+             id="hintId" data-toggle="tooltip" data-placement="top" title="@Model.Lecture">
+            <img src="~/img/icons/hint.png" class="hint--icon" />
+            <p class="hint--text">HINT</p>
+        </div>
+        <div class="visy--cool-border visy--cool-border__medium visy--show-answer"
+             id="showAnswerId">
+            <b>SHOW THE ANSWER</b>
+            <p>click or press space</p>
+        </div>
+    </div>
+
+    <div class="visy--test--fliped back w-100">
+        <p class="visy--test--question">
+            @Model.Answer
+        </p>
+    </div>
+</div>
+
+<div class="options--holder d-none" id="optionsHolderId">
+    <p>Was this a hard question?</p>
+    <div class="d-flex">
+        <div onclick="ButtonPress(0)" class="visy--cool-border visy--cool-border__small option--button">EASY</div>
+        <div onclick="ButtonPress(1)" class="visy--cool-border visy--cool-border__small option--button">MEDIUM</div>
+        <div onclick="ButtonPress(2)" class="visy--cool-border visy--cool-border__small option--button">HARD</div>
+    </div>
+</div>
+
+
+
+<script>
+    function ButtonPress(priority) {
+        var url = document.getElementById("baseUrl").value;
+        url += "currentCardId=";
+        url+=@Model.CardId;
+        url += "&priority=";
+        url += priority;
+
+      $.get(url, function (result) {
+                $(ajaxDiv).html(result);
+                }
+      );
+    }
+
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+
+

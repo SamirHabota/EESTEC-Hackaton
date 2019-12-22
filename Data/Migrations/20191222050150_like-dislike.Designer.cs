@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(VisyLrnContext))]
-    [Migration("20191221135526_Initial")]
-    partial class Initial
+    [Migration("20191222050150_like-dislike")]
+    partial class likedislike
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,8 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("AvatarLink");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -65,9 +67,9 @@ namespace Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
-                    b.Property<string>("VisyPoints");
+                    b.Property<int?>("VisyPoints");
 
-                    b.Property<string>("Year");
+                    b.Property<int>("Year");
 
                     b.HasKey("Id");
 
@@ -134,9 +136,9 @@ namespace Data.Migrations
 
                     b.Property<int>("LectureId");
 
-                    b.Property<DateTime?>("NextShowMin");
-
                     b.Property<string>("OriginalAuthorId");
+
+                    b.Property<int>("Priority");
 
                     b.Property<string>("Question");
 
@@ -157,6 +159,8 @@ namespace Data.Migrations
 
                     b.Property<string>("AccountId");
 
+                    b.Property<DateTime>("DateCreated");
+
                     b.Property<int>("PostId");
 
                     b.Property<string>("Text");
@@ -168,6 +172,25 @@ namespace Data.Migrations
                     b.HasIndex("PostId");
 
                     b.ToTable("Comment");
+                });
+
+            modelBuilder.Entity("Data.Models.Dislike", b =>
+                {
+                    b.Property<int>("DislikeId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AccountId");
+
+                    b.Property<int>("CommentId");
+
+                    b.HasKey("DislikeId");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("CommentId");
+
+                    b.ToTable("Dislikes");
                 });
 
             modelBuilder.Entity("Data.Models.Document", b =>
@@ -207,7 +230,7 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<int>("Type");
 
                     b.HasKey("Id");
 
@@ -223,6 +246,8 @@ namespace Data.Migrations
                     b.Property<int>("CreatorId");
 
                     b.Property<string>("CreatorId1");
+
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
@@ -250,6 +275,25 @@ namespace Data.Migrations
                     b.ToTable("Lecture");
                 });
 
+            modelBuilder.Entity("Data.Models.Like", b =>
+                {
+                    b.Property<int>("LikeId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AccountId");
+
+                    b.Property<int>("CommentId");
+
+                    b.HasKey("LikeId");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("CommentId");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("Data.Models.Organization", b =>
                 {
                     b.Property<int>("Id")
@@ -272,6 +316,8 @@ namespace Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AccountId");
+
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<int>("GroupId");
 
@@ -302,6 +348,8 @@ namespace Data.Migrations
 
                     b.HasIndex("LectureId");
 
+                    b.HasIndex("OriginalAuthorId");
+
                     b.ToTable("Question");
                 });
 
@@ -312,6 +360,8 @@ namespace Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AccountId");
+
+                    b.Property<string>("Description");
 
                     b.Property<int?>("Ects");
 
@@ -539,6 +589,19 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("Data.Models.Dislike", b =>
+                {
+                    b.HasOne("Data.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Data.Models.Comment", "Comment")
+                        .WithMany("Dislikes")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("Data.Models.Document", b =>
                 {
                     b.HasOne("Data.Models.Lecture", "Lecture")
@@ -573,6 +636,19 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("Data.Models.Like", b =>
+                {
+                    b.HasOne("Data.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Data.Models.Comment", "Comment")
+                        .WithMany("Likes")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("Data.Models.Post", b =>
                 {
                     b.HasOne("Data.Models.Account", "Account")
@@ -591,6 +667,11 @@ namespace Data.Migrations
                     b.HasOne("Data.Models.Lecture", "Lecture")
                         .WithMany("Question")
                         .HasForeignKey("LectureId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Data.Models.Account", "OriginalAuthor")
+                        .WithMany()
+                        .HasForeignKey("OriginalAuthorId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

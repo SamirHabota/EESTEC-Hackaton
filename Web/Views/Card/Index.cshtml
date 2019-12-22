@@ -1,0 +1,57 @@
+﻿@model Web.Viewmodels.CardVM.LecturesVM
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+@{
+    string url = "/card/ShowNextCard?";
+    @foreach (var lecture in Model.Lectures) {
+        url += "lectures=";
+        url += lecture.Id;
+        url += '&';
+    }
+}
+
+    <div class="container">
+        <h1 class="text-center" style="margin-top:-50px;margin-bottom: 50px;">Learn by <b>repeating</b></h1>
+        <div class="row">
+            <div class="visy--cool-border visy--cool-border__onCard">
+                <p class="deck--title">YOUR DECK</p>
+                <p class="deck--subtitle">Subjects:</p>
+                @foreach (var lecture in Model.NoDups) {
+                    <p class="deck--list">@lecture.Subject.Name</p>
+                }
+                <br />
+                <p class="deck--subtitle">Lectures:</p>
+                @foreach (var lecture in Model.Lectures) {
+                    <p class="deck--list">@lecture.Name</p>
+                }
+
+            </div>
+            <div id="ajaxDiv"></div>
+        </div>
+    </div>
+
+
+
+
+
+<input hidden value="@url" id="baseUrl"/>
+       @section Scripts{
+<script>
+        $(document).ready(function () {
+
+            @{
+                url += "currentCardId=0&priority=0";
+            }
+
+            var url = '@url'
+            url = url.split("amp;").join("");
+            $.get(url, function (result) {
+                $(ajaxDiv).html(result);
+                }
+            );
+        });
+</script>
+}

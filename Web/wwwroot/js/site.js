@@ -10,12 +10,18 @@ $(document).ajaxComplete(function () {
 function flip() {
     var card = document.getElementById("cardId");
     var isFLipped = card.getAttribute("isFlipped");
+    var options = document.getElementById("optionsHolderId");
     if (isFLipped == 'true') {
-        card.classList.add("flipped");
+
+
         setTimeout(function () {
             document.getElementById("hintId").setAttribute("style", "display:none");
             document.getElementById("showAnswerId").setAttribute("style", "display:none");
-        }, 300);
+            options.classList.remove("d-none");
+        }, 300);      
+
+        card.classList.add("flipped");
+   
         card.setAttribute("isFlipped", "false");
     }
     else {
@@ -23,13 +29,15 @@ function flip() {
         setTimeout(function () {
             document.getElementById("hintId").removeAttribute("style", "display:none");
             document.getElementById("showAnswerId").removeAttribute("style", "display:none");
-        }, 300);
+            options.classList.add("d-none");
+        }, 500);
         card.setAttribute("isFlipped", "true");
     }
 }
 
-document.body.onkeyup = function (e) {
-    if (e.keyCode == 32) {
+window.onkeydown = function (e) {
+    if (e.keyCode == 32 && e.target == document.body) {
+        e.preventDefault();
         flip();
     }
 }   

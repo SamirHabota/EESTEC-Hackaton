@@ -31,6 +31,8 @@ namespace Data
         public virtual DbSet<Subject> Subject { get; set; }
         public virtual DbSet<Test> Test { get; set; }
         public virtual DbSet<TestQuestion> TestQuestion { get; set; }
+        public virtual DbSet<Like> Likes { get; set; }
+        public virtual DbSet<Dislike> Dislikes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -12,7 +12,7 @@ namespace Data.Models
         public Priority Priority { get; set; }
         public string OriginalAuthorId { get; set; }
         public int LectureId { get; set; }
-
+        public string Color { get; set; }
         public virtual Lecture Lecture { get; set; }
         public virtual Account OriginalAuthor { get; set; }
     }

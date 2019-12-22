@@ -108,7 +108,8 @@ namespace Web.Controllers
                 Answer = allCards[0].Answer,
                 Question = allCards[0].Question,
                 CardId = allCards[0].Id,
-                Lecture = theCard.Lecture.Name
+                Lecture = theCard.Lecture.Name,
+                Color = allCards[0].Color
             };
 
 

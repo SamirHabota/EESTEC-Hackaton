@@ -12,5 +12,6 @@ namespace Web.Viewmodels.CardVM
        public string Answer { get; set; }
        public string Question { get; set; }
         public string Lecture { get; set; }
+        public string Color {get; set;}
     }
 }

@@ -343,8 +343,8 @@ button {
 .navbar .profile--logo {
     border-radius: 100%;
     border: 2px solid #ffffff;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     object-fit: cover;
     cursor: pointer;
 }
@@ -389,7 +389,9 @@ button {
 .navbar--study:hover {
     color: white;
 }
-
+.navbar--study {
+    margin: 0 25px;
+}
 main {
     margin-top: 100px;
 }

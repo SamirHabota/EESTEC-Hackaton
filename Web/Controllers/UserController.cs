@@ -278,14 +278,20 @@ namespace Web.Controllers
 
             var lectures = subject.Lecture.ToList();
             var originalAuthorId = "";
+
+            bool hasCards = false;
             foreach (var lecture in lectures)
             {
                 if (lecture.Card.Count != 0)
                 {
                     originalAuthorId = lecture.Card.First().OriginalAuthorId;
+                    hasCards = true;
                     break;
                 }
+                
             }
+            if(!hasCards)
+                return Redirect("/");
 
             var author = _context.Account.Single(a => a.Id == originalAuthorId);
             author.VisyPoints += 10;

@@ -72,5 +72,41 @@ namespace Web.Controllers
 
         }
 
+        public IActionResult AddPost(int groupId, string text) {
+
+            var accountId = _context.Account.Where(w => w.NormalizedUserName == HttpContext.User.Identity.Name.ToUpper()).FirstOrDefault().Id;
+
+            var newPost = new Post() {
+                AccountId=accountId,
+                Text=text,
+                GroupId=groupId,
+                DateCreated=DateTime.Now
+            };
+            _context.Post.Add(newPost);
+            _context.SaveChanges();
+
+            return Redirect("index");
+        }
+
+
+        public IActionResult AddComment(int postId, string text) {
+
+            var accountId = _context.Account.Where(w => w.NormalizedUserName == HttpContext.User.Identity.Name.ToUpper()).FirstOrDefault().Id;
+
+            var newComment = new Comment() {
+                AccountId = accountId,
+                Text = text,
+                PostId = postId,
+                DateCreated = DateTime.Now
+            };
+
+            _context.Comment.Add(newComment);
+            _context.SaveChanges();
+
+            return Redirect("index");
+        }
+
+
+
     }
 }

@@ -6,8 +6,13 @@
 <div class="container-fluid" style="margin-top: -90px; width: 80%;">
     <h1 style="text-align:center; margin-bottom: 30px;"><b>Visy</b>Feed</h1>
     <div class="wall--group--holder visy--cool-border">
+
         @foreach (var group in Model.Groups) {
             <h3 class="wall--group--title">@group.Name</h3>
+            <div class="d-flex">
+                <input class="form-control" style="margin-bottom: 20px" id="postId" />
+                <a class="btn btn-primary" onclick="post(@group.Id)"><i class="fas fa-paper-plane"></i></a>
+            </div>
 
             foreach (var post in group.Post) {
                 var name = "";
@@ -26,7 +31,7 @@
                         <p class="mb-0 ml-4"><b>@name</b></p>
                     </div>
                     <div>
-                        <h4>@post.Text</h4>
+                        <h4 class="ml-3">@post.Text</h4>
                     </div>
                 </div>
 
@@ -40,8 +45,7 @@
                             break;
                         }
                     }
-
-                    <div class="comment mb-2" style="display: flex; margin-left: 100px;">
+                    <div class="comment position-relative mb-2" style="display: flex; margin-left: 100px;">
                         <div class="text-center">
                             <img class="wall--profile--image__small" src="~/img/users/@commImageLink" />
                             <p class="mb-0"><b>@name</b></p>
@@ -49,15 +53,45 @@
                         <div>
                             <p class="mb-0 ml-4"><b>@comm.Text</b></p>
                         </div>
+                        <div style="position: absolute;right: 20px; top: 23px;">
+                            <a asp-controller="Wall" asp-action="Like" asp-route-commentId="@comm.Id"><i style="font-size: 25px;" class="fas fa-chevron-up"></i></a>
+                            <a asp-controller="Wall" asp-action="Dislike" asp-route-commentId="@comm.Id"><i style="font-size: 25px;" class="fas fa-chevron-down"></i></a>
+                        </div>
                     </div>
 
                 }
-
-                <hr class="mb-4 border-none " style="opacity:0"/>
+                <div class="d-flex">
+                    <input class="form-control" style="margin-bottom: 20px" id="commentId" />
+                    <a class="btn btn-primary" onclick="comment(@post.Id)"><i class="fas fa-paper-plane"></i></a>
+                </div>
+                <hr class="mb-4 border-none " style="opacity:0" />
             }
         }
     </div>
 </div>
+
+<script>
+    function post(groupId) {
+        var text = document.getElementById("postId").value;
+        if (text == "") return;
+        var url = "/wall/AddPost?groupId=" + groupId + "&text=" + text;
+        $.get(url, function (result) {
+            location.reload();
+                }
+            );
+    }
+
+       function comment(postId) {
+        var text = document.getElementById("commentId").value;
+        if (text == "") return;
+           var url = "/wall/AddComment?postId=" + postId + "&text=" + text;
+           alert(url);
+        $.get(url, function (result) {
+            location.reload();
+                }
+            );
+        }
+</script>
 
 
 

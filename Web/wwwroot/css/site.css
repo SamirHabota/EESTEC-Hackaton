@@ -722,3 +722,37 @@ main {
     .visycard__hover .visycard:hover .card--content--label {
         border: 1px solid #fff;
     }
+
+
+@media only screen and (max-width: 600px) {
+
+    .navbar--right {
+        flex-wrap: wrap;
+    }
+    main {
+        margin-top: 75px!important;
+        padding: 0 20px;
+    }
+
+    .main--content {
+        margin-top: 30px;
+    }
+
+    .post-feed {
+        width: 100%!important;
+        margin: auto 0;
+    }
+    .comment {
+        margin-left: 10px!important;
+    }
+    .comment h4 {
+        font-size: 11px;
+    }
+    .wall--profile--txt {
+        display: none;
+    }
+    .voting {
+        position: relative;
+        display: none!important;
+    }
+}

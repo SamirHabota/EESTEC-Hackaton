@@ -49,12 +49,11 @@ namespace Web.Controllers
                 _context.Dislikes.Remove(dislike);
             }
 
+            var acc = _context.Account.Find(_context.Comment.FirstOrDefault(w=>w.Id==commentId).AccountId);
+            acc.VisyPoints++;
             _context.SaveChanges();
 
             return RedirectToAction("Index");
-
-
-
         }
 
         public IActionResult Dislike(int commentId) {
@@ -64,13 +63,16 @@ namespace Web.Controllers
                 CommentId = commentId
             };
 
-            if (_context.Dislikes.Any(w=>w.AccountId == accountId && w.CommentId == commentId))
+            if (_context.Dislikes.Any(w=>w.AccountId == accountId && w.CommentId == commentId)){
                 return RedirectToAction("Index");
+            }
 
             _context.Dislikes.Add(dislike);
 
             var like = _context.Likes.Where(d => d.AccountId == accountId && d.CommentId == commentId).FirstOrDefault();
             if (like != null) {
+                var acc = _context.Account.Find(_context.Comment.FirstOrDefault(w=>w.Id==commentId).AccountId);
+                acc.VisyPoints--;
                 _context.Likes.Remove(like);
             }
 

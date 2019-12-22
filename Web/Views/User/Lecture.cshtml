@@ -115,7 +115,7 @@
                     @{
                         foreach (var doc in Model.Documents)
                         {
-                            <a class="visycard__hover d-block col-md-4 col-12 text-decoration-none" asp-action="Document" asp-route-id="@doc.Id">
+                            <a class="visycard__hover d-block col-md-4 col-12 text-decoration-none" target="_blank" href="/files/@doc.DocPath" >
 
                                 <div class="visycard">
 
@@ -155,9 +155,7 @@
                 </div>
 
             </div>
-
-
-
+            
             <!-- Question -->
             <div class="tab-pane fade show"
                  id="lectures"

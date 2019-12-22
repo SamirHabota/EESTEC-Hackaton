@@ -98,6 +98,7 @@ namespace Web.Controllers
                 CardsCount = _context.Card.Count(c => c.LectureId == l.Id),
                 QuestionCount = _context.Question.Count(c => c.LectureId == l.Id),
                 DocumentCount = _context.Document.Count(c => c.LectureId == l.Id),
+
             }).ToList();
 
             return View(model);
@@ -128,26 +129,17 @@ namespace Web.Controllers
                 Question = c.Question,
                 Author = c.OriginalAuthor.UserName,
             }).ToList();
-
-            var dc = new DocumentVM()
-            {
-                Title = "Document 1",
-                Description = "Lorem ipsum sit ameci.",
-                DocType = "Markdown",
-                WordCount = 323,
-                CharCount = 1233,
-                Author = "Adnan Čutura"
-
-
-            };
+         
             model.Documents = _context.Document.Where(c => c.LectureId == id).Select(d => new DocumentVM
             {
                 Id = d.Id,
                 Title = d.Title,
                 Description = d.Description,
-            }).ToList();
-            model.Documents.Add(dc);
+                DocType = d.Extension,
+                DocPath = d.DocumentPath,
 
+            }).ToList();
+           
             model.LectureName = lecture.Name;
             model.Id = lecture.Id;
             model.SubjectName = lecture.Subject.Name;
@@ -166,207 +158,225 @@ namespace Web.Controllers
         {
             var lecture = _context.Lecture.Include(l => l.Subject).FirstOrDefault(s => s.Id == model.Id);
 
+
+            var hexColors = new List<string>
+            {
+                "#735cb0",
+                "#00a4ef",
+                "#6ab43e",
+                "#e89d41",
+                "#fd4084",
+                "#e73841",
+                "#b11852",
+                "#602683",
+                "#188984",
+                "#ed7020",
+            };
+
             var card = new Card()
             {
                 Question = model.Question,
                 Answer = model.Answer,
                 LectureId = model.Id,
-                //OriginalAuthorId = _context.Account.First(a => a.UserName.ToUpper() == HttpContext.User.Identity.Name.ToUpper()).Id,
                 OriginalAuthorId = _context.Account.First().Id,
-
+                LastShwon = DateTime.MinValue,
+                Priority = Priority.High,
+                Color = hexColors.Distinct().OrderBy(x => System.Guid.NewGuid().ToString()).First()
             };
 
-            _context.Add(card);
+        _context.Add(card);
             _context.SaveChanges();
 
             return Redirect($"/User/Lecture?id={lecture.Id}");
-        }
-
-        public IActionResult AddQuestion(AddQuestionVM model)
-        {
-            var lecture = _context.Lecture.Include(l => l.Subject).FirstOrDefault(s => s.Id == model.Id);
-
-            var ans = new List<Answer>();
-            var question = new Question()
-            {
-                Text = model.Question,
-                //Answer = model.Answer,
-                LectureId = model.Id,
-                //OriginalAuthorId = _context.Account.First(a => a.UserName.ToUpper() == HttpContext.User.Identity.Name.ToUpper()).Id,
-                OriginalAuthorId = _context.Account.First().Id,
-
-            };
-
-            if (!string.IsNullOrEmpty(model.Answer))
-                ans.Add(new Answer
-                {
-                    Text = model.Answer,
-                    IsCorrect = model.IsAnswer,
-                    Question = question
-
-                });
-
-
-            if (!string.IsNullOrEmpty(model.AnswerOne))
-                ans.Add(new Answer
-                {
-                    Text = model.AnswerOne,
-                    IsCorrect = model.IsAnswerOne,
-                    Question = question
-
-                });
-
-
-            if (!string.IsNullOrEmpty(model.AnswerTwo))
-                ans.Add(new Answer
-                {
-                    Text = model.AnswerTwo,
-                    IsCorrect = model.IsAnswerTwo,
-                    Question = question
-
-                });
-
-            if (!string.IsNullOrEmpty(model.AnswerThree))
-                ans.Add(new Answer
-                {
-                    Text = model.AnswerThree,
-                    IsCorrect = model.IsAnswerThree,
-                    Question = question
-
-                });
-
-
-            if (!string.IsNullOrEmpty(model.AnswerFour))
-                ans.Add(new Answer
-                {
-                    Text = model.AnswerFour,
-                    IsCorrect = model.IsAnswerFour,
-                    Question = question
-
-                });
-            question.Answer = ans;
-            _context.Add(question);
-            _context.SaveChanges();
-
-            return Redirect($"/User/Lecture?id={lecture.Id}");
-        }
-
-        public IActionResult StealLecture(int id)
-        {
-            var lecture = _context.Lecture.Include(l => l.Subject).FirstOrDefault(s => s.Id == id);
-            var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper());
-
-
-            return Ok();
-
-        }
-
-        public IActionResult StealSubject(int id)
-        {
-            var subject = _context.Subject.Include(s => s.Lecture).ThenInclude(l => l.Card).FirstOrDefault(s => s.Id == id);
-            var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper());
-
-            var steal = new Subject
-            {
-                AccountId = account.Id,
-                Description = subject.Description,
-                Ects = subject.Ects,
-                Name = subject.Name,
-                Professor = subject.Professor,
-                SemesterNumber = subject.SemesterNumber,
-                OrganizationId = subject.OrganizationId,
-                SyllabusPath = subject.SyllabusPath
-            };
-
-            var lectures = subject.Lecture.ToList();
-            var originalAuthorId = "";
-
-            bool hasCards = false;
-            foreach (var lecture in lectures)
-            {
-                if (lecture.Card.Count != 0)
-                {
-                    originalAuthorId = lecture.Card.First().OriginalAuthorId;
-                    hasCards = true;
-                    break;
-                }
-                
-            }
-            if(!hasCards)
-                return Redirect("/");
-
-            var author = _context.Account.Single(a => a.Id == originalAuthorId);
-            author.VisyPoints += 10;
-
-            _context.Add(steal);
-            _context.SaveChanges();
-
-            return Redirect("/");
-        }
-        
-        public IActionResult AddSubject(AddSubjectVM model)
-        {
-
-            var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper());
-
-            var subject = new Subject
-            {
-                AccountId = account.Id,
-                Description = model.Description,
-                Ects = model.Ects,
-                Name = model.Name,
-                Professor = model.Professor,
-                SyllabusPath = model.SyllabusPath,
-                OrganizationId = model.OrganizationId,
-                SemesterNumber = model.SemesterNumber
-            };
-
-            _context.Add(subject);
-            _context.SaveChanges();
-
-            return RedirectToAction("Index", subject.Id);
-        }
-
-        public IActionResult AddLecture(AddLectureVM model)
-        {
-            var lecture = new Lecture
-            {
-                SubjectId = model.Id,
-                Name = model.Name,
-                Number = model.Number
-            };
-
-            _context.Add(lecture);
-            _context.SaveChanges();
-
-            return Redirect($"/User/Subject?id={lecture.SubjectId}");
-        }
-
-        public async Task<IActionResult> AddDocument(NewDocumentVM model)
-        {
-
-            var fileNameExtension =await new FileUpload().DocumentFolder(model.File);
-
-            var doc = new Document
-            {
-                Title = model.Title,
-                Description = model.Description,
-                DocumentPath = fileNameExtension.First().Key,
-                Extension = fileNameExtension.First().Value,
-                LectureId = model.Id, 
-                OriginalAuthor = _context.Account.First(a => a.UserName == HttpContext.User.Identity.Name.ToUpper()).UserName
-            };
-
-            _context.Add(doc);
-            _context.SaveChanges();
-            return Redirect($"/User/Lecture?id={model.Id}");
-        }
-
-
-        [Route("InitDB")]
-        public async Task<bool> InitDb()
-        {
-            return await _context.InitializeDB(_userManager);
-        }
     }
+
+    public IActionResult AddQuestion(AddQuestionVM model)
+    {
+        var lecture = _context.Lecture.Include(l => l.Subject).FirstOrDefault(s => s.Id == model.Id);
+
+        var ans = new List<Answer>();
+        var question = new Question()
+        {
+            Text = model.Question,
+            //Answer = model.Answer,
+            LectureId = model.Id,
+            //OriginalAuthorId = _context.Account.First(a => a.UserName.ToUpper() == HttpContext.User.Identity.Name.ToUpper()).Id,
+            OriginalAuthorId = _context.Account.First().Id,
+
+
+        };
+
+        if (!string.IsNullOrEmpty(model.Answer))
+            ans.Add(new Answer
+            {
+                Text = model.Answer,
+                IsCorrect = model.IsAnswer,
+                Question = question
+
+            });
+
+
+        if (!string.IsNullOrEmpty(model.AnswerOne))
+            ans.Add(new Answer
+            {
+                Text = model.AnswerOne,
+                IsCorrect = model.IsAnswerOne,
+                Question = question
+
+            });
+
+
+        if (!string.IsNullOrEmpty(model.AnswerTwo))
+            ans.Add(new Answer
+            {
+                Text = model.AnswerTwo,
+                IsCorrect = model.IsAnswerTwo,
+                Question = question
+
+            });
+
+        if (!string.IsNullOrEmpty(model.AnswerThree))
+            ans.Add(new Answer
+            {
+                Text = model.AnswerThree,
+                IsCorrect = model.IsAnswerThree,
+                Question = question
+
+            });
+
+
+        if (!string.IsNullOrEmpty(model.AnswerFour))
+            ans.Add(new Answer
+            {
+                Text = model.AnswerFour,
+                IsCorrect = model.IsAnswerFour,
+                Question = question
+
+            });
+        question.Answer = ans;
+        _context.Add(question);
+        _context.SaveChanges();
+
+        return Redirect($"/User/Lecture?id={lecture.Id}");
+    }
+
+    public IActionResult StealLecture(int id)
+    {
+        var lecture = _context.Lecture.Include(l => l.Subject).FirstOrDefault(s => s.Id == id);
+        var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper());
+
+
+        return Ok();
+
+    }
+
+    public IActionResult StealSubject(int id)
+    {
+        var subject = _context.Subject.Include(s => s.Lecture).ThenInclude(l => l.Card).FirstOrDefault(s => s.Id == id);
+        var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper());
+
+        var steal = new Subject
+        {
+            AccountId = account.Id,
+            Description = subject.Description,
+            Ects = subject.Ects,
+            Name = subject.Name,
+            Professor = subject.Professor,
+            SemesterNumber = subject.SemesterNumber,
+            OrganizationId = subject.OrganizationId,
+            SyllabusPath = subject.SyllabusPath
+        };
+
+        var lectures = subject.Lecture.ToList();
+        var originalAuthorId = "";
+
+        bool hasCards = false;
+        foreach (var lecture in lectures)
+        {
+            if (lecture.Card.Count != 0)
+            {
+                originalAuthorId = lecture.Card.First().OriginalAuthorId;
+                hasCards = true;
+                break;
+            }
+
+        }
+        if (!hasCards)
+            return Redirect("/");
+
+        var author = _context.Account.Single(a => a.Id == originalAuthorId);
+        author.VisyPoints += 10;
+
+        _context.Add(steal);
+        _context.SaveChanges();
+
+        return Redirect("/");
+    }
+
+    public IActionResult AddSubject(AddSubjectVM model)
+    {
+
+        var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper());
+
+        var subject = new Subject
+        {
+            AccountId = account.Id,
+            Description = model.Description,
+            Ects = model.Ects,
+            Name = model.Name,
+            Professor = model.Professor,
+            SyllabusPath = model.SyllabusPath,
+            OrganizationId = model.OrganizationId,
+            SemesterNumber = model.SemesterNumber
+        };
+
+        _context.Add(subject);
+        _context.SaveChanges();
+
+        return RedirectToAction("Index", subject.Id);
+    }
+
+    public IActionResult AddLecture(AddLectureVM model)
+    {
+        var lecture = new Lecture
+        {
+            SubjectId = model.Id,
+            Name = model.Name,
+            Number = model.Number
+        };
+
+        _context.Add(lecture);
+        _context.SaveChanges();
+
+        return Redirect($"/User/Subject?id={lecture.SubjectId}");
+    }
+
+    public async Task<IActionResult> AddDocument(NewDocumentVM model)
+    {
+
+        var fileNameExtension = await new FileUpload().DocumentFolder(model.File);
+
+        var doc = new Document
+        {
+            Title = model.Title,
+            Description = model.Description,
+            DocumentPath = fileNameExtension.First().Key,
+            Extension = fileNameExtension.First().Value,
+            LectureId = model.Id,
+            OriginalAuthor = _context.Account.First(a => a.UserName == HttpContext.User.Identity.Name.ToUpper()).UserName,
+            TypeId = 1
+        };
+
+        _context.Add(doc);
+        _context.SaveChanges();
+        return Redirect($"/User/Lecture?id={model.Id}");
+    }
+
+
+    [Route("InitDB")]
+    public async Task<bool> InitDb()
+    {
+        return await _context.InitializeDB(_userManager);
+    }
+}
 }

@@ -184,7 +184,8 @@ namespace Data
                 Answer = "A variable which value is a memory adress",
                 Priority = Priority.High,
                 OriginalAuthor = account1,
-                LastShwon=DateTime.MinValue
+                LastShwon = DateTime.MinValue,
+                Color = "#735cb0"
             };
 
             var card2 = new Card
@@ -194,7 +195,8 @@ namespace Data
                 Answer = "Using the keyword delete",
                 Priority = Priority.High,
                 OriginalAuthor = account1,
-                LastShwon = DateTime.MinValue
+                LastShwon = DateTime.MinValue,
+                Color = "#00a4ef"
             };
 
             var card3 = new Card
@@ -204,7 +206,8 @@ namespace Data
                 Answer = "Newly created memory address location or nullpttr",
                 Priority = Priority.High,
                 OriginalAuthor = account1,
-                LastShwon = DateTime.MinValue
+                LastShwon = DateTime.MinValue,
+                Color = "#6ab43e"
             };
 
             var card4 = new Card
@@ -214,7 +217,8 @@ namespace Data
                 Answer = "Yes",
                 Priority = Priority.High,
                 OriginalAuthor = account1,
-                LastShwon = DateTime.MinValue
+                LastShwon = DateTime.MinValue,
+                Color = "#e89d41"
             };
 
             var card5 = new Card
@@ -224,7 +228,8 @@ namespace Data
                 Answer = "Dereferencing is the act of referring to where the pointer points, instead of the memory address.",
                 Priority = Priority.High,
                 OriginalAuthor = account1,
-                LastShwon = DateTime.MinValue
+                LastShwon = DateTime.MinValue,
+                Color = "#e73841"
             };
 
             var card6 = new Card
@@ -234,15 +239,54 @@ namespace Data
                 Answer = "The & operator",
                 Priority = Priority.High,
                 OriginalAuthor = account1,
-                LastShwon = DateTime.MinValue
+                LastShwon = DateTime.MinValue,
+                Color = "#b11852"
             };
+
+            var card7 = new Card
+            {
+                Lecture = lecture4,
+                Question = "What is a class",
+                Answer = "A class defines the kinds of data and the functionality their objects will have.",
+                Priority = Priority.High,
+                OriginalAuthor = account1,
+                LastShwon = DateTime.MinValue,
+                Color = "#ed7020"
+            };
+
+            var card8 = new Card
+            {
+                Lecture = lecture4,
+                Question = "What is a constructor",
+                Answer = "Constructor is a special method which is invoked automatically at the time of object creation.",
+                Priority = Priority.High,
+                OriginalAuthor = account1,
+                LastShwon = DateTime.MinValue,
+                Color = "#ed7020"
+            };
+
+            var card9 = new Card
+            {
+                Lecture = lecture4,
+                Question = "What is a destructor",
+                Answer = "destructor is a special member function that is executed automatically when an object is destroyed.",
+                Priority = Priority.High,
+                OriginalAuthor = account1,
+                LastShwon = DateTime.MinValue,
+                Color = "#188984"
+            };
+
+
 
             context.Card.AddRange(card1,
                                   card2,
                                   card3,
                                   card4,
                                   card5,
-                                  card6);
+                                  card6,
+                                  card7,
+                                  card8,
+                                  card9);
             context.SaveChanges();
 
             #endregion
@@ -265,14 +309,14 @@ namespace Data
             var question3 = new Question
             {
                 Text = "Question 3",
-                Lecture = lecture2,
+                Lecture = lecture1,
                 OriginalAuthor = account1
             };
 
             var question4 = new Question
             {
                 Text = "Question 4",
-                Lecture = lecture2,
+                Lecture = lecture1,
                 OriginalAuthor = account1
             };
 

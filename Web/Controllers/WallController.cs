@@ -22,8 +22,10 @@ namespace Web.Controllers
 
 
             var returmModel = new WallWM() {
-                Groups = _context.Group.Include(g => g.Post).ThenInclude(p => p.Comment).ToList(),
-                Accounts = _context.Account.ToList()
+                Groups = _context.Group.Include(g => g.Post).ThenInclude(p => p.Comment).ThenInclude(p=>p.Likes).Include(g => g.Post).ThenInclude(p => p.Comment).ThenInclude(i=>i.Dislikes).ToList(),
+                Accounts = _context.Account.ToList(),
+                DislikedComms = _context.Dislikes.Where(w=>w.Account.UserName.ToUpper() == User.Identity.Name.ToUpper()).Select(s=>s.Comment.Id).ToList(),
+                LikedComms = _context.Likes.Where(w=>w.Account.UserName.ToUpper() == User.Identity.Name.ToUpper()).Select(s=>s.Comment.Id).ToList()
             };
 
             return View(returmModel);
@@ -36,6 +38,9 @@ namespace Web.Controllers
                 AccountId = accountId,
                 CommentId = commentId
             };
+
+            if (_context.Likes.Any(w=>w.AccountId == accountId && w.CommentId == commentId))
+                return RedirectToAction("Index");
 
             _context.Likes.Add(like);
 
@@ -58,6 +63,9 @@ namespace Web.Controllers
                 AccountId = accountId,
                 CommentId = commentId
             };
+
+            if (_context.Dislikes.Any(w=>w.AccountId == accountId && w.CommentId == commentId))
+                return RedirectToAction("Index");
 
             _context.Dislikes.Add(dislike);
 
@@ -105,8 +113,6 @@ namespace Web.Controllers
 
             return Redirect("index");
         }
-
-
 
     }
 }

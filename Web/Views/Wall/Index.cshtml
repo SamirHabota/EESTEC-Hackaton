@@ -53,9 +53,10 @@
                         <div>
                             <p class="mb-0 ml-4"><b>@comm.Text</b></p>
                         </div>
+                        <span style="position: absolute;right: 100px; top: 23px;">@(comm.Likes.Count - comm.Dislikes.Count)</span>
                         <div style="position: absolute;right: 20px; top: 23px;">
-                            <a asp-controller="Wall" asp-action="Like" asp-route-commentId="@comm.Id"><i style="font-size: 25px;" class="fas fa-chevron-up"></i></a>
-                            <a asp-controller="Wall" asp-action="Dislike" asp-route-commentId="@comm.Id"><i style="font-size: 25px;" class="fas fa-chevron-down"></i></a>
+                            <a asp-controller="Wall" asp-action="Like" asp-route-commentId="@comm.Id"><i style="font-size: 25px;" class="fas fa-chevron-up @(Model.LikedComms.Contains(comm.Id) ? "text-success" : string.Empty )"></i></a>
+                            <a asp-controller="Wall" asp-action="Dislike" asp-route-commentId="@comm.Id"><i style="font-size: 25px;" class="fas fa-chevron-down @(Model.DislikedComms.Contains(comm.Id) ? "text-danger" : string.Empty )"></i></a>
                         </div>
                     </div>
 

@@ -1,0 +1,11 @@
+@model double
+
+@{
+    ViewData["Title"] = "Quiz";
+    Layout = "_Layout";
+}
+
+<div class="w-100 text-center">
+<h2>Your result: </h2>
+<h1 class=""><b>@Model.ToString("0.00")%</b></h1>
+</div>

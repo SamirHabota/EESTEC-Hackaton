@@ -1,0 +1,79 @@
+@model Web.Viewmodels.Quiz.QuestionVM
+
+@{
+    ViewData["Title"] = "Quiz";
+    Layout = null;
+}
+
+<div class="visy--cool-border col-md-5 col-12 row justify-content-center">
+    <!-- Question -->
+    <div class="mt-2 text-center test-question w-100">
+        <h2><b>@Model.Text</b></h2>
+    </div>
+    <form onsubmit="getNewQuestion(event)" class="w-100">
+        <div class="my-4 w-75">
+            @if(Model.isMultiple){
+                @foreach(var ans in @Model.Answers){
+                    <div>
+                        <input type="checkbox" id="chbx-@ans.Id" value="@ans.Id" Name="Answers">
+                        <label for="chbx-@ans.Id">@ans.Text</label>
+                    </div>
+                }
+            }
+            else{
+                @foreach(var ans in @Model.Answers){
+                    <div>
+                        <input type="radio" id="radio-@ans.Id" value="@ans.Id" Name="Answers">
+                        <label for="radio-@ans.Id">@ans.Text</label>
+                    </div>
+                }
+            }
+        </div>
+
+        <!-- Next question button -->
+        <div class="w-100 text-center test-button">
+            <button type="submit">
+                <b>
+                    NEXT QUESTION
+                </b>
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Current question -->
+<div>
+    <h2 class="mt-4 text-center">
+        <b>@Model.currentQuestion</b>
+    </h2>
+</div>
+
+<script>
+    function getNewQuestion(e){
+        e.preventDefault();
+
+            var route = $('#route').val();
+
+            var Answers = [];
+
+            
+
+            $.each($("input[name='Answers']:checked"), function(){
+                Answers.push($(this).val());
+            });
+
+            console.log(Answers);
+
+            Answers.forEach(item=>{
+                route += '&Answers=' + item;
+            });
+
+             $.get(route
+            ,
+            function (result) {
+                $(ajaxDiv).html(result);
+            });
+
+            console.log(route);
+    }
+</script>

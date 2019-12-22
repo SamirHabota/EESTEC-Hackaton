@@ -13,5 +13,9 @@ namespace Data.Models
 
         public virtual Account Account { get; set; }
         public virtual Post Post { get; set; }
+
+        public List<Like> Likes { get; set; }
+        public List<Dislike> Dislikes { get; set; }
+
     }
 }

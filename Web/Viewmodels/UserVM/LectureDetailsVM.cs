@@ -11,7 +11,7 @@ namespace Web.Viewmodels.UserVM
     {
         public UserDataVM User { get; set; }
 
-        public List<CardVM> Cards { get; set; }
+        public List<Web.Viewmodels.SharedVM.CardVM> Cards { get; set; }
         public List<DocumentVM> Documents { get; set; }
         public List<QuestionVM> Questions{ get; set; }
         public AddCardVM NewCard { get; set; }

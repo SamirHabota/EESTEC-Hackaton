@@ -172,11 +172,32 @@ namespace Data.Migrations
                     b.ToTable("Comment");
                 });
 
+            modelBuilder.Entity("Data.Models.Dislike", b =>
+                {
+                    b.Property<int>("DislikeId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AccountId");
+
+                    b.Property<int>("CommentId");
+
+                    b.HasKey("DislikeId");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("CommentId");
+
+                    b.ToTable("Dislikes");
+                });
+
             modelBuilder.Entity("Data.Models.Document", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Author");
 
                     b.Property<string>("Description");
 
@@ -254,6 +275,25 @@ namespace Data.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("Lecture");
+                });
+
+            modelBuilder.Entity("Data.Models.Like", b =>
+                {
+                    b.Property<int>("LikeId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AccountId");
+
+                    b.Property<int>("CommentId");
+
+                    b.HasKey("LikeId");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("CommentId");
+
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("Data.Models.Organization", b =>
@@ -358,7 +398,13 @@ namespace Data.Migrations
 
                     b.Property<DateTime>("EndDate");
 
+                    b.Property<double>("QuestionPoints");
+
                     b.Property<double>("TotalScore");
+
+                    b.Property<int>("currentOrdinalNumber");
+
+                    b.Property<bool>("isFinished");
 
                     b.HasKey("Id");
 
@@ -373,9 +419,13 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("OrdinalNumber");
+
                     b.Property<int>("QuestionId");
 
                     b.Property<int>("TestId");
+
+                    b.Property<bool>("isCorrect");
 
                     b.HasKey("Id");
 
@@ -551,6 +601,19 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("Data.Models.Dislike", b =>
+                {
+                    b.HasOne("Data.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Data.Models.Comment", "Comment")
+                        .WithMany("Dislikes")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("Data.Models.Document", b =>
                 {
                     b.HasOne("Data.Models.Lecture", "Lecture")
@@ -582,6 +645,19 @@ namespace Data.Migrations
                     b.HasOne("Data.Models.Subject", "Subject")
                         .WithMany("Lecture")
                         .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Data.Models.Like", b =>
+                {
+                    b.HasOne("Data.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Data.Models.Comment", "Comment")
+                        .WithMany("Likes")
+                        .HasForeignKey("CommentId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

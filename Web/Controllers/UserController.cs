@@ -99,7 +99,7 @@ namespace Web.Controllers
         public IActionResult Lecture(int id)
         {
             var model = new LectureDetailsVM();
-            var lecture = _context.Lecture.Include(l=>l.Subject).FirstOrDefault(s => s.Id == id);
+            var lecture = _context.Lecture.Include(l => l.Subject).FirstOrDefault(s => s.Id == id);
 
             var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.Id == lecture.Subject.AccountId) ??
                           _context.Account.Include(a => a.Organization).FirstOrDefault();
@@ -139,22 +139,109 @@ namespace Web.Controllers
                 Description = d.Description,
             }).ToList();
             model.Documents.Add(dc);
-            
+
             model.LectureName = lecture.Name;
+            model.Id = lecture.Id;
             model.SubjectName = lecture.Subject.Name;
 
             model.Questions = _context.Question.Where(q => q.LectureId == id).Select(s => new QuestionVM
             {
                 Id = s.Id,
                 Question = s.Text,
-                Answer = string.Join(", ", s.Answer.Select(a=>a.Text))
+                Answer = string.Join(", ", s.Answer.Select(a => a.Text))
             }).ToList();
 
             return View(model);
         }
 
+        public IActionResult AddCard(AddCardVM model)
+        {
+            var lecture = _context.Lecture.Include(l => l.Subject).FirstOrDefault(s => s.Id == model.Id);
+
+            var card = new Card()
+            {
+                Question = model.Question,
+                Answer = model.Answer,
+                LectureId = model.Id,
+                //OriginalAuthorId = _context.Account.First(a => a.UserName.ToUpper() == HttpContext.User.Identity.Name.ToUpper()).Id,
+                OriginalAuthorId = _context.Account.First().Id,
+
+            };
+
+            _context.Add(card);
+            _context.SaveChanges();
+
+            return Redirect($"/User/Lecture?id={lecture.Id}");
+        }
+
+        public IActionResult AddQuestion(AddQuestionVM model)
+        {
+            var lecture = _context.Lecture.Include(l => l.Subject).FirstOrDefault(s => s.Id == model.Id);
+
+            var ans = new List<Answer>();
+            var question = new Question()
+            {
+                Text = model.Question,
+                //Answer = model.Answer,
+                LectureId = model.Id,
+                //OriginalAuthorId = _context.Account.First(a => a.UserName.ToUpper() == HttpContext.User.Identity.Name.ToUpper()).Id,
+                OriginalAuthorId = _context.Account.First().Id,
+
+            };
+
+            if (!string.IsNullOrEmpty(model.Answer))
+                ans.Add(new Answer
+                {
+                    Text = model.Answer,
+                    IsCorrect = model.IsAnswer,
+                    Question = question
+
+                });
 
 
+            if (!string.IsNullOrEmpty(model.AnswerOne))
+                ans.Add(new Answer
+                {
+                    Text = model.AnswerOne,
+                    IsCorrect = model.IsAnswerOne,
+                    Question = question
+
+                });
+
+
+            if (!string.IsNullOrEmpty(model.AnswerTwo))
+                ans.Add(new Answer
+                {
+                    Text = model.AnswerTwo,
+                    IsCorrect = model.IsAnswerTwo,
+                    Question = question
+
+                });
+
+            if (!string.IsNullOrEmpty(model.AnswerThree))
+                ans.Add(new Answer
+                {
+                    Text = model.AnswerThree,
+                    IsCorrect = model.IsAnswerThree,
+                    Question = question
+
+                });
+
+
+            if (!string.IsNullOrEmpty(model.AnswerFour))
+                ans.Add(new Answer
+                {
+                    Text = model.AnswerFour,
+                    IsCorrect = model.IsAnswerFour,
+                    Question = question
+
+                });
+            question.Answer = ans;
+            _context.Add(question);
+            _context.SaveChanges();
+
+            return Redirect($"/User/Lecture?id={lecture.Id}");
+        }
 
         [Route("InitDB")]
         public async Task<bool> InitDb()

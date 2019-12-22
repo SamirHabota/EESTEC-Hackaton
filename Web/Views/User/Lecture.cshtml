@@ -18,7 +18,7 @@
         <h3 class="page--subtitle mb-5">Learn with <b>@Model.User.FirstName</b></h3>
 
         <ul class="custom--navbar nav nav-tabs" id="myTab" role="tablist">
-        
+
             <li class="nav-item">
                 <a class="nav-link custom--nav--item  pl-0 active "
                    id="profile-tab"
@@ -26,8 +26,7 @@
                    href="#card"
                    role="tab"
                    aria-controls="card"
-                   aria-selected="true"
-                  >Cards</a>
+                   aria-selected="true">Cards</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link custom--nav--item"
@@ -52,7 +51,7 @@
         </ul>
         <div class="tab-content mt-4" id="myTabContent">
 
-    
+
 
             <!-- Cards -->
             <div class="tab-pane fade"
@@ -130,9 +129,9 @@
 
             </div>
 
-        
-        
-            <!-- Lectures -->
+
+
+            <!-- Question -->
             <div class="tab-pane fade show"
                  id="lectures"
                  role="tabpanel"
@@ -150,22 +149,27 @@
                             </a>
                         }
                     }
+                    <a data-toggle="modal" data-target="#addQuestion" style="cursor: pointer;" class="visycard__hover d-block col-md-3 col-12 text-decoration-none">
 
+                        <div class="visycard">
+
+                            <h4 class="card--title mb-0 align-items-center d-flex justify-content-center"><b>Add a new question</b> <i style="font-size: 25px; color: #184894;" class="fas fa-plus ml-4"></i></h4>
+
+
+                        </div>
+                    </a>
                 </div>
 
 
 
 
             </div>
-            </div>
+        </div>
 
     </div>
 </div>
 
-
-<!-- Button trigger modal -->
-@*  asp-action="AddCard" *@
-<!-- Modal -->
+<!-- Add card-->
 <div class="modal fade" id="addCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -175,22 +179,77 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="input-group mb-3">
-                    <label for="question" class="w-100">Card question</label>
-                    <input type="text" class="form-control" placeholder="Question" name="question" aria-label="Question">
+            <form asp-action="AddCard" method="post">
+                <div class="modal-body">
+
+                    <input type="text" class="form-control" placeholder="Question" asp-for="@Model.Question">
+
+                    <input type="text" class="form-control mt-2" placeholder="Answer" asp-for="@Model.Answer" />
+
+                    <input type="hidden" class="form-control" placeholder="Answer" asp-for="@Model.Id">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                    <button type="submit" class="btn background--darkest-blue text-white">Add card</button>
                 </div>
 
-                <div class="input-group mb-3">
-                    <label for="answer" class="w-100">Card answer</label>
-                    <input type="text" class="form-control" placeholder="Answer" name="answer" aria-label="Question">
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add quesiton-->
+<div class="modal fade" id="addQuestion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new questioon</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="AddQuestion" method="post">
+                <div class="modal-body">
+
+                    <p>Maximum question is 5 minimum is 2!</p>
+
+                    <input type="text" class="form-control" placeholder="Question" asp-for="@Model.Question">
+
+                    <div class="d-flex">
+                        <input class="mr-2" type="checkbox" asp-for="@Model.IsAnswer" />
+                        <input type="text" class="form-control mt-2" placeholder="Answer 1" asp-for="@Model.Answer" />
+                    </div>
+
+                    <div class="d-flex">
+                        <input class="mr-2" type="checkbox" asp-for="@Model.IsAnswerOne" />
+                        <input type="text" class="form-control mt-2" placeholder="Answer 2" asp-for="@Model.AnswerOne" />
+                    </div>
+
+                    <div class="d-flex">
+                        <input class="mr-2" type="checkbox" asp-for="@Model.IsAnswerTwo" />
+                        <input type="text" class="form-control mt-2" placeholder="Answer 3" asp-for="@Model.AnswerTwo" />
+                    </div>
+
+                    <div class="d-flex">
+                        <input class="mr-2" type="checkbox" asp-for="@Model.IsAnswerThree" />
+                        <input type="text" class="form-control mt-2" placeholder="Answer 4" asp-for="@Model.AnswerThree" />
+                    </div>
+
+                    <div class="d-flex">
+                        <input class="mr-2" type="checkbox" asp-for="@Model.IsAnswerFour" />
+                        <input type="text" class="form-control mt-2" placeholder="Answer 5" asp-for="@Model.AnswerFour" />
+                    </div>
+
+                    <input type="hidden" class="form-control" placeholder="Answer" asp-for="@Model.Id">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                    <button type="submit" class="btn background--darkest-blue text-white">Add card</button>
                 </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
-                <button type="button" class="btn background--darkest-blue text-white">Add card</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>

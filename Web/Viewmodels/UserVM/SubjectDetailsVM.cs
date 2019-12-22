@@ -10,9 +10,10 @@ namespace Web.Viewmodels.UserVM
     {
         public UserDataVM User { get; set; }
         public string Name { get; set; }
-
-        public List<CardVM> Cards { get; set; }
-        public List<DocumentVM> Documents { get; set; }
+        public int Id { get; set; }
+        public int? Number { get; set; }
+        public int SubjectId { get; set; }
         public List<LectureVM> Lectures { get; set; }
+
     }
 }

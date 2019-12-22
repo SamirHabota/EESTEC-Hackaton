@@ -1,0 +1,273 @@
+﻿@model Web.Viewmodels.UserVM.LectureDetailsVM
+
+@{
+    ViewBag.Title = "Subject";
+    Layout = "_Layout";
+}
+
+<div class="col-md-3 col-12" style="margin-right: 15px; margin-left: -15px;">
+    <partial name="PartialViews/UserSidebar" model="@Model.User" />
+</div>
+
+
+
+<div class="col-md-9 col-12">
+    <div class="main--content">
+        <div class="d-flex justify-content-between">
+            <div class="title ">
+
+                <h1 class="page--title">Subject <b>@Model.SubjectName</b>, lecture <b>@Model.LectureName</b> </h1>
+                <h3 class="page--subtitle mb-5">Learn with <b>@Model.User.FirstName</b></h3>
+            </div>
+        @if (!string.Equals(Context.User.Identity.Name, Model.User.Username, StringComparison.InvariantCultureIgnoreCase))
+        {
+            <a asp-action="StealLecture" asp-route-id="@Model.Id" class="steal--button" style="width: auto; padding-right: 15px;">
+                <img class="steal--icon" src="/img/icons/grab.png"/>
+                <div class="steal--text--holder">
+                    <p class="steal--title">Steal</p>
+                    <p>*legally</p>
+                </div>
+            </a>
+        }
+        </div>
+        <ul class="custom--navbar nav nav-tabs" id="myTab" role="tablist">
+
+            <li class="nav-item">
+                <a class="nav-link custom--nav--item  pl-0 active "
+                   id="profile-tab"
+                   data-toggle="tab"
+                   href="#card"
+                   role="tab"
+                   aria-controls="card"
+                   aria-selected="true">Cards</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link custom--nav--item"
+                   id="contact-tab"
+                   data-toggle="tab"
+                   href="#documents"
+                   role="tab"
+                   aria-controls="documents"
+                   aria-selected="false"
+                   style="margin-left:  35px;">Documents</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link custom--nav--item"
+                   id="home-tab"
+                   data-toggle="tab"
+                   href="#lectures"
+                   role="tab"
+                   aria-controls="lectures"
+                   aria-selected="false"
+                   style="margin-left:  35px;">Questions</a>
+            </li>
+        </ul>
+        <div class="tab-content mt-4" id="myTabContent">
+
+
+
+            <!-- Cards -->
+            <div class="tab-pane fade"
+                 id="card"
+                 role="tabpanel"
+                 aria-labelledby="profile-tab">
+                <div class="row">
+
+                    @{
+                        foreach (var card in Model.Cards)
+                        {
+                            <a class="visycard__hover d-block col-md-3 col-12 text-decoration-none" asp-action="Card" asp-route-id="@card.Id">
+
+                                <div class="visycard">
+
+                                    <h4 class="card--title"><b>@card.Question</b></h4>
+                                    <hr class="card--separator" />
+                                    <h5 class="card--professor"><b class="text-success font-weight-bold">ANSWER</b> @card.Answer</h5>
+
+                                </div>
+                            </a>
+                        }
+                    }
+                    @if (string.Equals(Context.User.Identity.Name, Model.User.Username, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        <a data-toggle="modal" data-target="#addCard" style="cursor: pointer;" class="visycard__hover d-block col-md-3 col-12 text-decoration-none">
+
+                            <div class="visycard">
+
+                                <h4 class="card--title mb-0 align-items-center d-flex justify-content-center"><b>Add a new card</b> <i style="font-size: 25px; color: #184894;" class="fas fa-plus ml-4"></i></h4>
+
+
+                            </div>
+                        </a>
+                    }
+                </div>
+            </div>
+
+
+            <!-- Documents -->
+            <div class="tab-pane fade"
+                 id="documents"
+                 role="tabpanel"
+                 aria-labelledby="contact-tab">
+
+                <div class="row">
+
+                    @{
+                        foreach (var doc in Model.Documents)
+                        {
+                            <a class="visycard__hover d-block col-md-4 col-12 text-decoration-none" asp-action="Document" asp-route-id="@doc.Id">
+
+                                <div class="visycard">
+
+                                    <h2 class="card--title"><b>@doc.Title</b></h2>
+                                    <h2 class="card--sub-spacing"><b>@doc.DocType</b></h2>
+                                    <hr class="card--separator" />
+
+                                    <div class="card--content">
+                                        <p class="card--content--text">
+                                            @doc.Description
+                                        </p>
+                                        <div class="card--content--row">
+                                            <h3 class="card--content--row--title">Words count</h3>
+                                            <p class="card--content--row--badge">@doc.WordCount</p>
+                                        </div>
+                                        <div class="card--content--row">
+                                            <h3 class="card--content--row--title">Documents</h3>
+                                            <p class="card--content--row--badge">@doc.CharCount</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    }
+                </div>
+
+            </div>
+
+
+
+            <!-- Question -->
+            <div class="tab-pane fade show"
+                 id="lectures"
+                 role="tabpanel"
+                 aria-labelledby="home-tab">
+                <div class="row">
+                    @{
+                        foreach (var question in Model.Questions)
+                        {
+                            <a class="visycard__hover d-block col-md-4 col-12 text-decoration-none" asp-action="Lecture" asp-route-id="@question.Id">
+
+                                <div class="visycard">
+                                    <h2 class="card--title"><b>@question.Question</b></h2>
+                                    <h5 class="card--professor"><b class="text-success font-weight-bold">ANSWERS</b> @question.Answer</h5>
+                                </div>
+                            </a>
+                        }
+                    }
+                    @if (string.Equals(Context.User.Identity.Name, Model.User.Username, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        <a data-toggle="modal" data-target="#addQuestion" style="cursor: pointer;" class="visycard__hover d-block col-md-3 col-12 text-decoration-none">
+
+                            <div class="visycard">
+
+                                <h4 class="card--title mb-0 align-items-center d-flex justify-content-center"><b>Add a new question</b> <i style="font-size: 25px; color: #184894;" class="fas fa-plus ml-4"></i></h4>
+
+
+                            </div>
+                        </a>
+                    }
+                </div>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Add card-->
+<div class="modal fade" id="addCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new card</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="AddCard" method="post">
+                <div class="modal-body">
+
+                    <input type="text" class="form-control" placeholder="Question" asp-for="@Model.Question">
+
+                    <input type="text" class="form-control mt-2" placeholder="Answer" asp-for="@Model.Answer" />
+
+                    <input type="hidden" class="form-control" placeholder="Answer" asp-for="@Model.Id">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                    <button type="submit" class="btn background--darkest-blue text-white">Add card</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add quesiton-->
+<div class="modal fade" id="addQuestion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new questioon</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="AddQuestion" method="post">
+                <div class="modal-body">
+
+                    <p>Maximum question is 5 minimum is 2!</p>
+
+                    <input type="text" class="form-control" placeholder="Question" asp-for="@Model.Question">
+
+                    <div class="d-flex">
+                        <input class="mr-2" type="checkbox" asp-for="@Model.IsAnswer" />
+                        <input type="text" class="form-control mt-2" placeholder="Answer 1" asp-for="@Model.Answer" />
+                    </div>
+
+                    <div class="d-flex">
+                        <input class="mr-2" type="checkbox" asp-for="@Model.IsAnswerOne" />
+                        <input type="text" class="form-control mt-2" placeholder="Answer 2" asp-for="@Model.AnswerOne" />
+                    </div>
+
+                    <div class="d-flex">
+                        <input class="mr-2" type="checkbox" asp-for="@Model.IsAnswerTwo" />
+                        <input type="text" class="form-control mt-2" placeholder="Answer 3" asp-for="@Model.AnswerTwo" />
+                    </div>
+
+                    <div class="d-flex">
+                        <input class="mr-2" type="checkbox" asp-for="@Model.IsAnswerThree" />
+                        <input type="text" class="form-control mt-2" placeholder="Answer 4" asp-for="@Model.AnswerThree" />
+                    </div>
+
+                    <div class="d-flex">
+                        <input class="mr-2" type="checkbox" asp-for="@Model.IsAnswerFour" />
+                        <input type="text" class="form-control mt-2" placeholder="Answer 5" asp-for="@Model.AnswerFour" />
+                    </div>
+
+                    <input type="hidden" class="form-control" placeholder="Answer" asp-for="@Model.Id">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                    <button type="submit" class="btn background--darkest-blue text-white">Add card</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
-    $('#contact-tab').trigger('click');
     $('#home-tab').trigger('click');
+    $('#profile-tab').trigger('click');
 });
 
 $(document).ajaxComplete(function () {});

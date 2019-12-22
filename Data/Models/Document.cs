@@ -8,6 +8,7 @@ namespace Data.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public string Author { get; set; }
         public string DocumentPath { get; set; }
         public string Extension { get; set; }
         public string OriginalAuthor { get; set; }

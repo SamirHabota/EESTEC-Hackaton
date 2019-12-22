@@ -15,6 +15,7 @@
               crossorigin="anonymous"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -24,12 +25,14 @@
 
                 <div class="navbar--left">
                     <img class="navbar--logo" src="/img/icons/Logo__white.png" alt="Logo" />
-                    <a class="navbar--brand" asp-area="" asp-controller="Home" asp-action="Index"><b>Visy</b>lrn</a>
+                    <a class="navbar--brand text-decoration-none text-white" asp-area="" asp-controller="User" asp-action="Index"><b>Visy</b>lrn</a>
                 </div>
 
                 <div class="navbar--right d-flex align-items-center">
-                    <a asp-action="" class="navbar--study"><img src="/img/icons/study.png" height="25" class="mr-2"/>Study</a>
-                    <a asp-action=""> <img class="profile--logo" src="/img/icons/Logo__white.png" alt="Logo" /></a>
+                    <a asp-controller="Card" asp-action="SelectLectures" class="navbar--study"><img src="/img/icons/study.png" height="25" class="mr-2"/>Study</a>
+                    <a asp-controller="Quiz" asp-action="SelectLectures" class="navbar--study"><img src="/img/icons/test.png" height="25" class="mr-2"/>Test</a>
+                    <a asp-controller="Wall" asp-action="Index" class="navbar--study"><img src="/img/icons/feed.png" height="25" class="mr-2"/>VisyFeed</a>                 
+                    <a asp-controller="User" asp-action="Index"> <img class="profile--logo" src="/img/users/ado.jpg" alt="Logo" /></a>
                 </div>
 
             </div>

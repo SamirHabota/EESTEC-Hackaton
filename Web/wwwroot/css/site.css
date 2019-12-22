@@ -1,4 +1,5 @@
-﻿@import url("https://fonts.googleapis.com/css?family=Raleway:400,600,700&display=swap");
+﻿
+@import url("https://fonts.googleapis.com/css?family=Raleway:400,600,700&display=swap");
 
 * {
     font-size: 100%;
@@ -170,6 +171,12 @@ button {
     border: none;
     max-width: 55px;
 }
+.card--sub-spacing{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 17px;
+}
+
 
 .card--professor {
     font-weight: 100;
@@ -336,8 +343,8 @@ button {
 .navbar .profile--logo {
     border-radius: 100%;
     border: 2px solid #ffffff;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     object-fit: cover;
     cursor: pointer;
 }
@@ -382,7 +389,9 @@ button {
 .navbar--study:hover {
     color: white;
 }
-
+.navbar--study {
+    margin: 0 25px;
+}
 main {
     margin-top: 100px;
 }
@@ -396,10 +405,18 @@ main {
     height: 60px;
 }
 
-.steal--icon {
-    height: 37px;
-    margin: 10px;
-}
+    .steal--button:hover {
+        border: 1px solid #e73841;
+        background-color: rgba(231,56,65,0.4);
+    }
+        .steal--button:hover .steal--icon {
+            transition: 300ms all ease-in-out;
+            transform: translateY(-5px);
+        }
+    .steal--icon {
+        height: 37px;
+        margin: 10px;
+    }
 
 .steal--text--holder {
     margin: 5px 0 5px;

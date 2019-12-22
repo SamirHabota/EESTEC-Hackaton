@@ -1,0 +1,196 @@
+﻿@model Web.Viewmodels.UserVM.LectureDetailsVM
+
+@{
+    ViewBag.Title = "Subject";
+    Layout = "_Layout";
+}
+
+<div class="col-md-3 col-12" style="margin-right: 15px; margin-left: -15px;">
+    <partial name="PartialViews/UserSidebar" model="@Model.User" />
+</div>
+
+
+
+<div class="col-md-9 col-12">
+    <div class="main--content">
+
+        <h1 class="page--title">Subject <b>@Model.SubjectName</b>, lecture <b>@Model.LectureName</b> </h1>
+        <h3 class="page--subtitle mb-5">Learn with <b>@Model.User.FirstName</b></h3>
+
+        <ul class="custom--navbar nav nav-tabs" id="myTab" role="tablist">
+        
+            <li class="nav-item">
+                <a class="nav-link custom--nav--item  pl-0 active "
+                   id="profile-tab"
+                   data-toggle="tab"
+                   href="#card"
+                   role="tab"
+                   aria-controls="card"
+                   aria-selected="true"
+                  >Cards</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link custom--nav--item"
+                   id="contact-tab"
+                   data-toggle="tab"
+                   href="#documents"
+                   role="tab"
+                   aria-controls="documents"
+                   aria-selected="false"
+                   style="margin-left:  35px;">Documents</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link custom--nav--item"
+                   id="home-tab"
+                   data-toggle="tab"
+                   href="#lectures"
+                   role="tab"
+                   aria-controls="lectures"
+                   aria-selected="false"
+                   style="margin-left:  35px;">Questions</a>
+            </li>
+        </ul>
+        <div class="tab-content mt-4" id="myTabContent">
+
+    
+
+            <!-- Cards -->
+            <div class="tab-pane fade"
+                 id="card"
+                 role="tabpanel"
+                 aria-labelledby="profile-tab">
+                <div class="row">
+
+                    @{
+                        foreach (var card in Model.Cards)
+                        {
+                            <a class="visycard__hover d-block col-md-3 col-12 text-decoration-none" asp-action="Card" asp-route-id="@card.Id">
+
+                                <div class="visycard">
+
+                                    <h4 class="card--title"><b>@card.Question</b></h4>
+                                    <hr class="card--separator" />
+                                    <h5 class="card--professor"><b class="text-success font-weight-bold">ANSWER</b> @card.Answer</h5>
+
+                                </div>
+                            </a>
+                        }
+                    }
+
+                    <a data-toggle="modal" data-target="#addCard" style="cursor: pointer;" class="visycard__hover d-block col-md-3 col-12 text-decoration-none">
+
+                        <div class="visycard">
+
+                            <h4 class="card--title mb-0 align-items-center d-flex justify-content-center"><b>Add a new card</b> <i style="font-size: 25px; color: #184894;" class="fas fa-plus ml-4"></i></h4>
+
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+
+            <!-- Documents -->
+            <div class="tab-pane fade"
+                 id="documents"
+                 role="tabpanel"
+                 aria-labelledby="contact-tab">
+
+                <div class="row">
+
+                    @{
+                        foreach (var doc in Model.Documents)
+                        {
+                            <a class="visycard__hover d-block col-md-4 col-12 text-decoration-none" asp-action="Document" asp-route-id="@doc.Id">
+
+                                <div class="visycard">
+
+                                    <h2 class="card--title"><b>@doc.Title</b></h2>
+                                    <h2 class="card--sub-spacing"><b>@doc.DocType</b></h2>
+                                    <hr class="card--separator" />
+
+                                    <div class="card--content">
+                                        <p class="card--content--text">
+                                            @doc.Description
+                                        </p>
+                                        <div class="card--content--row">
+                                            <h3 class="card--content--row--title">Words count</h3>
+                                            <p class="card--content--row--badge">@doc.WordCount</p>
+                                        </div>
+                                        <div class="card--content--row">
+                                            <h3 class="card--content--row--title">Documents</h3>
+                                            <p class="card--content--row--badge">@doc.CharCount</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                    }
+                </div>
+
+            </div>
+
+        
+        
+            <!-- Lectures -->
+            <div class="tab-pane fade show"
+                 id="lectures"
+                 role="tabpanel"
+                 aria-labelledby="home-tab">
+                <div class="row">
+                    @{
+                        foreach (var question in Model.Questions)
+                        {
+                            <a class="visycard__hover d-block col-md-4 col-12 text-decoration-none" asp-action="Lecture" asp-route-id="@question.Id">
+
+                                <div class="visycard">
+                                    <h2 class="card--title"><b>@question.Question</b></h2>
+                                    <h5 class="card--professor"><b class="text-success font-weight-bold">ANSWERS</b> @question.Answer</h5>
+                                </div>
+                            </a>
+                        }
+                    }
+
+                </div>
+
+
+
+
+            </div>
+            </div>
+
+    </div>
+</div>
+
+
+<!-- Button trigger modal -->
+@*  asp-action="AddCard" *@
+<!-- Modal -->
+<div class="modal fade" id="addCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new card</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+                    <label for="question" class="w-100">Card question</label>
+                    <input type="text" class="form-control" placeholder="Question" name="question" aria-label="Question">
+                </div>
+
+                <div class="input-group mb-3">
+                    <label for="answer" class="w-100">Card answer</label>
+                    <input type="text" class="form-control" placeholder="Answer" name="answer" aria-label="Question">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Dismiss</button>
+                <button type="button" class="btn background--darkest-blue text-white">Add card</button>
+            </div>
+        </div>
+    </div>
+</div>

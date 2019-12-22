@@ -8,5 +8,6 @@
         public string Description { get; set; }
         public int WordCount { get; set; }
         public int CharCount { get; set; }
+        public string Author { get; set; }
     }
 }

@@ -83,20 +83,6 @@ namespace Web.Controllers
                 ReputationPoints = account.VisyPoints ?? 0
             };
 
-            model.Cards = _context.Card.Where(c => c.Lecture.SubjectId == id).Select(c => new CardVM
-            {
-                Id = c.Id,
-                Answer = c.Answer,
-                Question = c.Question,
-                Author = c.OriginalAuthor.UserName
-            }).ToList();
-
-            model.Documents = _context.Document.Where(c => c.Lecture.SubjectId == id).Select(d => new DocumentVM
-            {
-                Id = d.Id,
-                Title = d.Title,
-                Description = d.Description,
-            }).ToList();
 
             model.Lectures = _context.Lecture.Where(l => l.SubjectId == subject.Id).Select(l => new LectureVM
             {
@@ -109,6 +95,66 @@ namespace Web.Controllers
 
             return View(model);
         }
+
+        public IActionResult Lecture(int id)
+        {
+            var model = new LectureDetailsVM();
+            var lecture = _context.Lecture.Include(l=>l.Subject).FirstOrDefault(s => s.Id == id);
+
+            var account = _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.Id == lecture.Subject.AccountId) ??
+                          _context.Account.Include(a => a.Organization).FirstOrDefault();
+            model.User = new UserDataVM
+            {
+                FirstName = account.FirstName,
+                LastName = account.LastName,
+                AvatarLink = account.AvatarLink,
+                Organization = $"{account.Organization.Name}, {account.Organization.Location}",
+                ReputationPoints = account.VisyPoints ?? 0
+            };
+
+
+            model.Cards = _context.Card.Where(c => c.LectureId == id).Select(c => new CardVM
+            {
+                Id = c.Id,
+                Answer = c.Answer,
+                Question = c.Question,
+                Author = c.OriginalAuthor.UserName,
+            }).ToList();
+
+            var dc = new DocumentVM()
+            {
+                Title = "Document 1",
+                Description = "Lorem ipsum sit ameci.",
+                DocType = "Markdown",
+                WordCount = 323,
+                CharCount = 1233,
+                Author = "Adnan Čutura"
+
+
+            };
+            model.Documents = _context.Document.Where(c => c.LectureId == id).Select(d => new DocumentVM
+            {
+                Id = d.Id,
+                Title = d.Title,
+                Description = d.Description,
+            }).ToList();
+            model.Documents.Add(dc);
+            
+            model.LectureName = lecture.Name;
+            model.SubjectName = lecture.Subject.Name;
+
+            model.Questions = _context.Question.Where(q => q.LectureId == id).Select(s => new QuestionVM
+            {
+                Id = s.Id,
+                Question = s.Text,
+                Answer = string.Join(", ", s.Answer.Select(a=>a.Text))
+            }).ToList();
+
+            return View(model);
+        }
+
+
+
 
         [Route("InitDB")]
         public async Task<bool> InitDb()

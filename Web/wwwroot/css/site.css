@@ -170,6 +170,12 @@ button {
     border: none;
     max-width: 55px;
 }
+.card--sub-spacing{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 17px;
+}
+
 
 .card--professor {
     font-weight: 100;

@@ -16,117 +16,41 @@
 
         <h1 class="page--title">Subject <b>@Model.Name</b></h1>
         <h3 class="page--subtitle mb-5">Learn with <b>@Model.User.FirstName</b></h3>
+        
+        <h3 class="mb-3"><b>Select a lecture</b></h3>
+        <div class="row">
+            @{
+                foreach (var lecture in Model.Lectures)
+                {
+                    <a class="visycard__hover d-block col-md-4 col-12 text-decoration-none" asp-action="Lecture" asp-route-id="@lecture.Id">
 
-        <ul class="custom--navbar nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item ">
-                <a class="nav-link active custom--nav--item pl-0"
-                   id="home-tab"
-                   data-toggle="tab"
-                   href="#lectures"
-                   role="tab"
-                   aria-controls="lectures"
-                   aria-selected="true">Lectures</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link custom--nav--item"
-                   id="profile-tab"
-                   data-toggle="tab"
-                   href="#card"
-                   role="tab"
-                   aria-controls="card"
-                   aria-selected="false"
-                   style="margin-left:  35px;">Cards</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link custom--nav--item"
-                   id="contact-tab"
-                   data-toggle="tab"
-                   href="#documents"
-                   role="tab"
-                   aria-controls="documents"
-                   aria-selected="false"
-                   style="margin-left:  35px;">Documents</a>
-            </li>
-        </ul>
-        <div class="tab-content mt-4" id="myTabContent">
+                        <div class="visycard">
 
-            <!-- Lectures -->
-            <div class="tab-pane fade show"
-                 id="lectures"
-                 role="tabpanel"
-                 aria-labelledby="home-tab">
-                <div class="row">
-                    @{
-                        foreach (var lecture in Model.Lectures)
-                        {
-                            <a class="visycard__hover d-block col-md-4 col-12 text-decoration-none" asp-action="Lecture" asp-route-id="@lecture.Id">
+                            <h2 class="card--title"><b>@lecture.Name</b></h2>
+                            <hr class="card--separator" />
 
-                                <div class="visycard">
+                            <div class="card--content">
 
-                                    <h2 class="card--title"><b>@lecture.Name</b></h2>
-                                    <hr class="card--separator" />
-
-                                    <div class="card--content">
-
-                                        <div class="card--content--row">
-                                            <h3 class="card--content--row--title">Cards</h3>
-                                            <p class="card--content--row--badge">@lecture.CardsCount</p>
-                                        </div>
-                                        <div class="card--content--row">
-                                            <h3 class="card--content--row--title">Documents</h3>
-                                            <p class="card--content--row--badge">@lecture.DocumentCount</p>
-                                        </div>
-                                        <div class="card--content--row">
-                                            <h3 class="card--content--row--title">Questions</h3>
-                                            <p class="card--content--row--badge">@lecture.QuestionCount</p>
-                                        </div>
-                                    </div>
+                                <div class="card--content--row">
+                                    <h3 class="card--content--row--title">Cards</h3>
+                                    <p class="card--content--row--badge">@lecture.CardsCount</p>
                                 </div>
-                            </a>
-                        }
-                    }
-
-                </div>
-
-
-
-
-            </div>
-
-            <!-- Cards -->
-            <div class="tab-pane fade"
-                 id="card"
-                 role="tabpanel"
-                 aria-labelledby="profile-tab">
-                <div class="row">
-
-                    @{
-                        foreach (var card in Model.Cards)
-                        {
-                            <a class="visycard__hover d-block col-md-3 col-12 text-decoration-none" asp-action="Subject" asp-route-id="@card.Id">
-
-                                <div class="visycard">
-
-                                    <h4 class="card--title"><b>@card.Question</b></h4>
-                                    <hr class="card--separator" />
-                                    <h5 class="card--professor"><b class="text-success font-weight-bold">ANSWER</b> @card.Answer</h5>
-
+                                <div class="card--content--row">
+                                    <h3 class="card--content--row--title">Documents</h3>
+                                    <p class="card--content--row--badge">@lecture.DocumentCount</p>
                                 </div>
-                            </a>
-                        }
-                    }
-                </div>
-            </div>
+                                <div class="card--content--row">
+                                    <h3 class="card--content--row--title">Questions</h3>
+                                    <p class="card--content--row--badge">@lecture.QuestionCount</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                }
+            }
 
-
-
-            <div class="tab-pane fade"
-                 id="documents"
-                 role="tabpanel"
-                 aria-labelledby="contact-tab">
-                documents
-            </div>
         </div>
 
     </div>
 </div>
+

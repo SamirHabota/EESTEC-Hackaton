@@ -183,7 +183,8 @@ namespace Data
                 Question = "What is a pointer",
                 Answer = "A variable which value is a memory adress",
                 Priority = Priority.High,
-                OriginalAuthor = account1
+                OriginalAuthor = account1,
+                LastShwon=DateTime.MinValue
             };
 
             var card2 = new Card
@@ -192,7 +193,8 @@ namespace Data
                 Question = "How to dealocate heap memory",
                 Answer = "Using the keyword delete",
                 Priority = Priority.High,
-                OriginalAuthor = account1
+                OriginalAuthor = account1,
+                LastShwon = DateTime.MinValue
             };
 
             var card3 = new Card
@@ -201,7 +203,8 @@ namespace Data
                 Question = "What does the operator 'new' return",
                 Answer = "Newly created memory address location or nullpttr",
                 Priority = Priority.High,
-                OriginalAuthor = account1
+                OriginalAuthor = account1,
+                LastShwon = DateTime.MinValue
             };
 
             var card4 = new Card
@@ -210,7 +213,8 @@ namespace Data
                 Question = "Can a memory location have two pointers pointing to it",
                 Answer = "Yes",
                 Priority = Priority.High,
-                OriginalAuthor = account1
+                OriginalAuthor = account1,
+                LastShwon = DateTime.MinValue
             };
 
             var card5 = new Card
@@ -219,7 +223,8 @@ namespace Data
                 Question = "What is differentiation",
                 Answer = "Dereferencing is the act of referring to where the pointer points, instead of the memory address.",
                 Priority = Priority.High,
-                OriginalAuthor = account1
+                OriginalAuthor = account1,
+                LastShwon = DateTime.MinValue
             };
 
             var card6 = new Card
@@ -228,7 +233,8 @@ namespace Data
                 Question = "What is the operator used in differentiation",
                 Answer = "The & operator",
                 Priority = Priority.High,
-                OriginalAuthor = account1
+                OriginalAuthor = account1,
+                LastShwon = DateTime.MinValue
             };
 
             context.Card.AddRange(card1,

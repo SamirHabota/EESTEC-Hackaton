@@ -287,27 +287,62 @@ namespace Web.Controllers
             SyllabusPath = subject.SyllabusPath
         };
 
-        var lectures = subject.Lecture.ToList();
-        var originalAuthorId = "";
+        _context.Add(steal);
 
-        bool hasCards = false;
-        foreach (var lecture in lectures)
-        {
-            if (lecture.Card.Count != 0)
-            {
-                originalAuthorId = lecture.Card.First().OriginalAuthorId;
-                hasCards = true;
-                break;
+        var lectures = subject.Lecture.ToList();
+
+        foreach(var lecture in lectures){
+
+            var newLecture = new Lecture{
+                Number = lecture.Number,
+                Name = lecture.Name,
+                Subject = steal
+            };
+
+            _context.Lecture.Add(newLecture);
+
+            var Cards = _context.Card.Where(w=>w.LectureId == lecture.Id).ToList();
+            var Questions = _context.Question.Where(w=>w.LectureId == lecture.Id).ToList();
+            var Documents = _context.Document.Where(w=>w.LectureId == lecture.Id).ToList();
+
+            foreach (var card in Cards)
+                _context.Card.Add(new Card{
+                    Answer = card.Answer,
+                    Color = card.Color,
+                    LastShwon = DateTime.MinValue,
+                    Priority = Priority.High,
+                    Lecture = newLecture,
+                    OriginalAuthorId = card.OriginalAuthorId,
+                    Question = card.Question
+                });
+
+            foreach (var Question in Questions){
+                var newQuestion = new Question{
+                    Text = Question.Text,
+                    Lecture = newLecture,
+                    OriginalAuthorId = Question.OriginalAuthorId,
+                };
+                _context.Question.Add(newQuestion);
+
+                var Answers = _context.Answer.Where(w=>w.QuestionId == Question.Id).ToList();
+                foreach (var Answer in Answers)
+                    _context.Answer.Add(new Answer{
+                        IsCorrect = Answer.IsCorrect,
+                        Question = newQuestion,
+                        Text = Answer.Text
+                    });
             }
 
+             foreach(var Document in Documents)
+                _context.Document.Add(new Document
+                {Description = Document.Description,
+                DocumentPath = Document.DocumentPath,
+                Lecture = newLecture,
+                Extension = Document.Extension,
+                OriginalAuthor = Document.OriginalAuthor});   
+
         }
-        if (!hasCards)
-            return Redirect("/");
 
-        var author = _context.Account.Single(a => a.Id == originalAuthorId);
-        author.VisyPoints += 10;
-
-        _context.Add(steal);
         _context.SaveChanges();
 
         return Redirect("/");

@@ -16,20 +16,30 @@
     <div class="container">
         <h1 class="text-center" style="margin-top:-50px;margin-bottom: 50px;">Learn by <b>repeating</b></h1>
         <div class="row">
-            <div class="visy--cool-border visy--cool-border__onCard">
-                <p class="deck--title">YOUR DECK</p>
-                <p class="deck--subtitle">Subjects:</p>
-                @foreach (var lecture in Model.NoDups) {
-                    <p class="deck--list">@lecture.Subject.Name</p>
-                }
-                <br />
-                <p class="deck--subtitle">Lectures:</p>
-                @foreach (var lecture in Model.Lectures) {
-                    <p class="deck--list">@lecture.Name</p>
-                }
+            
+            
+            <div class="col-md-3 col-12">
+                
+                <div class="visy--cool-border visy--cool-border__onCard">
+                    <p class="deck--title">YOUR DECK</p>
+                    <p class="deck--subtitle">Subjects:</p>
+                    @foreach (var lecture in Model.NoDups)
+                    {
+                        <p class="deck--list">@lecture.Subject.Name</p>
+                    }
+                    <br/>
+                    <p class="deck--subtitle">Lectures:</p>
+                    @foreach (var lecture in Model.Lectures)
+                    {
+                        <p class="deck--list">@lecture.Name</p>
+                    }
+
+                </div>
 
             </div>
-            <div id="ajaxDiv"></div>
+            <div class="col-md-9 col-12">
+                <div id="ajaxDiv"></div>
+            </div>
         </div>
     </div>
 

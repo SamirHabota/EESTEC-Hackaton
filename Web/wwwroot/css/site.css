@@ -484,7 +484,7 @@ main {
 
 .visy--cool-border__medium {
     width: 300px;
-    height: 71px;
+    height: 78px;
 }
 
 .hint--icon {
@@ -588,18 +588,27 @@ main {
 }
 
 .options--holder {
-    margin-top: 390px;
+    padding-top: 400px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .option--button {
     font-weight: 900;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 5px;
+    margin: 5px 25px;
+    font-size: 21px;
+    letter-spacing: 2px;
+    padding: 10px 25px;
 }
-
-.option--button:hover{
-    cursor:pointer;
+.show--answer {
+    font-size: 18px;
+}
+.option--button:hover {
+    cursor: pointer;
 }
 
 .start-button{
@@ -609,9 +618,9 @@ main {
 .visy--cool-border__onCard {
     margin: 0;
     min-height: 350px;
-    width: 260px;
-    margin-right: 60px;
-    margin-left: 50px;
+    /*width: 260px;*/
+    /*margin-right: 60px;
+    margin-left: 50px;*/
     padding: 25px;
 }
 .deck--title {

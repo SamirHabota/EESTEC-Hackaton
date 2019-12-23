@@ -14,6 +14,6 @@ namespace Web.Viewmodels.UserVM
         public int? Number { get; set; }
         public int SubjectId { get; set; }
         public List<LectureVM> Lectures { get; set; }
-
+        
     }
 }

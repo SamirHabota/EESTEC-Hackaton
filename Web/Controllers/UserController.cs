@@ -34,7 +34,7 @@ namespace Web.Controllers
 
 
             account = string.IsNullOrEmpty(username) ?
-                _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName == HttpContext.User.Identity.Name.ToUpper()) :
+                _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.UserName.ToUpper() == HttpContext.User.Identity.Name.ToUpper()) :
                 _context.Account.Include(a => a.Organization).FirstOrDefault(a => a.NormalizedUserName == username.ToUpper());
             model.Organizations = _context.Organization.Select(o => new SelectListItem
             {

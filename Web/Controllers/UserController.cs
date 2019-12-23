@@ -339,6 +339,7 @@ namespace Web.Controllers
                 DocumentPath = Document.DocumentPath,
                 Lecture = newLecture,
                 Extension = Document.Extension,
+                TypeId = 1,
                 OriginalAuthor = Document.OriginalAuthor});   
 
         }

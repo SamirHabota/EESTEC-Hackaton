@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(VisyLrnContext))]
-    [Migration("20191222053356_ini")]
-    partial class ini
+    [Migration("20191222235840_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -131,6 +131,8 @@ namespace Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Answer");
+
+                    b.Property<string>("Color");
 
                     b.Property<DateTime?>("LastShwon");
 

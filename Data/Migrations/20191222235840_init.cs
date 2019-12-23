@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -384,7 +384,8 @@ namespace Data.Migrations
                     LastShwon = table.Column<DateTime>(nullable: true),
                     Priority = table.Column<int>(nullable: false),
                     OriginalAuthorId = table.Column<string>(nullable: true),
-                    LectureId = table.Column<int>(nullable: false)
+                    LectureId = table.Column<int>(nullable: false),
+                    Color = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -411,7 +412,6 @@ namespace Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    Author = table.Column<string>(nullable: true),
                     DocumentPath = table.Column<string>(nullable: true),
                     Extension = table.Column<string>(nullable: true),
                     OriginalAuthor = table.Column<string>(nullable: true),

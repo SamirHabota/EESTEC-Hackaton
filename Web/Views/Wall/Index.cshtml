@@ -4,13 +4,15 @@
 }
 
 <div class="container-fluid post-feed" style="margin-top: -50px; width: 80%;">
-    <h1 style="text-align:center; margin-bottom: 30px;"><b>Visy</b>Feed</h1>
-    <div class="wall--group--holder visy--cool-border">
+    <h1 class="text-center mb-4"><b>Visy</b>Feed</h1>
+    <div class="visycard p-4">
 
         @foreach (var group in Model.Groups)
         {
             <h3 class="wall--group--title">@group.Name</h3>
-            <h4>Add new post</h4>
+            <hr class="card--separator" />
+
+            <h4 class="text-left">Add new post</h4>
             <div class="d-flex wall--new-post mb-4">
                 <input placeholder="Write your question" class="form-control" style="margin-bottom: 20px" id="postId" />
                 <a class="btn" onclick="post(@group.Id)"><i class="fas fa-paper-plane"></i></a>
@@ -56,7 +58,7 @@
                             break;
                         }
                     }
-                    <div class="comment position-relative mb-2" style="display: flex; margin-left: 100px;">
+                    <div class="comment position-relative mb-2 ml-5 d-flex">
                         <a class="text-left d-flex align-items-center " asp-controller="User" asp-action="Index" asp-route-username="@username">
                             <img class="wall--profile--image__small" src="~/img/users/@commImageLink" />
                             <p class="mb-0 ml-3 wall--profile--txt"><b>@commName</b></p>
@@ -73,8 +75,8 @@
 
                 }
                 
-                <h4 class="mt-4">Add new comment</h4>
-                <div class="d-flex wall--new-post">
+                <h4 class="mt-4 ml-5 text-left">Add new comment</h4>
+                <div class="d-flex wall--new-post ml-5">
                     <input placeholder="New comment" class="form-control  " style="margin-bottom: 20px" id="commentId" />
                     <a class="btn" onclick="comment(@post.Id)"><i class="fas fa-paper-plane"></i></a>
                 </div>

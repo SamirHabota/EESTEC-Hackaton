@@ -12,15 +12,15 @@
             <p class="visy--test--question p-3 ">
                 @Model.Question
             </p>
-            <div class="visy--cool-border visy--cool-border__small visy--hint"
+            <div class="visycard visy--hint"
                  id="hintId" data-toggle="tooltip" data-placement="top" title="@Model.Lecture">
                 <img src="~/img/icons/hint.png" class="hint--icon" />
                 <p class="hint--text">HINT</p>
             </div>
-            <div class="visy--cool-border visy--cool-border__medium visy--show-answer"
+            <div class="visycard p-2 visy--show-answer mb-0"
                  id="showAnswerId">
                 <b class="show--answer">SHOW THE ANSWER</b>
-                <p>click or press space</p>
+                <p class="m-0">click or press space</p>
             </div>
         </div>
 
@@ -36,9 +36,9 @@
 <div class="options--holder d-none" id="optionsHolderId">
     <h3 class="mb-2">Was this a hard question?</h3>
     <div class="d-flex">
-        <div onclick="ButtonPress(0)" class="visy--cool-border option--button">EASY</div>
-        <div onclick="ButtonPress(1)" class="visy--cool-border option--button">MEDIUM</div>
-        <div onclick="ButtonPress(2)" class="visy--cool-border option--button">HARD</div>
+        <div onclick="ButtonPress(0)" class="visycard option--button">EASY</div>
+        <div onclick="ButtonPress(1)" class="visycard option--button">MEDIUM</div>
+        <div onclick="ButtonPress(2)" class="visycard option--button">HARD</div>
     </div>
 </div>
 

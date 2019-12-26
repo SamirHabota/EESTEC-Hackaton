@@ -6,12 +6,16 @@
 }
 
 <!-- Heading -->
-<div class="d-flex justify-content-center text-center w-100">
+@*<div class="text-center w-100">
     <h1 class="mt-4" id="readme">Test your <b>knowledge</b></h1>
+</div>*@
+<div class="d-flex flex-column w-100">
+
+<h1 class="text-center mb-5" style="margin-top: -50px;"> Test your <b>knowledge</b></h1>
+
+<div id="ajaxDiv"></div>
+
 </div>
-
-<div id="ajaxDiv" class="w-100"></div>
-
 @{
     var route = $"/Quiz/GetNextQuestion?TestId={@Model.Id}";
 }

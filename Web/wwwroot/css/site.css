@@ -13,6 +13,8 @@
     --color--dark--blue: #1870a8;
     --color--light--blue: #189cbd;
     --color--lightest--blue: #7ebad4;
+    --gradient-primary: linear-gradient(#184894 10%, #1870a8, #189cbd);
+    --gradient-border: linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%), linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%)
 }
 
 
@@ -68,9 +70,11 @@ a {
         text-decoration: underline;
         color: var(--color--dark--blue);
     }
+
     a.col-md-4.visycard__hover:hover {
         margin-bottom: -4px !important;
     }
+
 button {
     border: 0;
     background: var(--color--dark--blue);
@@ -159,8 +163,11 @@ button {
         z-index: -1;
         margin: -5px;
         border-radius: inherit;
-        background-image: linear-gradient( var(--color--darkest--blue), var(--color--lightest--blue) );
-        /*background: linear-gradient( to right, var(--color--darkest--blue), var(--color--lightest--blue) );*/
+        background-image: var(--gradient-primary);
+    }
+
+    .visycard:hover b.text-success {
+        color: #00f700 !important;
     }
 
 .card--title {
@@ -171,12 +178,13 @@ button {
 
 .card--separator {
     margin: 10px auto 15px auto;
-    background: linear-gradient( to right, var(--color--darkest--blue), var(--color--lightest--blue) );
+    background: linear-gradient(to right, #184894 10%, #1870a8, #189cbd);
     height: 3px;
     border: none;
     max-width: 55px;
 }
-.card--sub-spacing{
+
+.card--sub-spacing {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-size: 17px;
@@ -257,7 +265,7 @@ button {
     height: 100%;
     padding: 50px 20px;
     min-height: 590px;
-    background-image: linear-gradient( var(--color--darkest--blue), var(--color--lightest--blue) );
+    background-image: var(--gradient-primary);;
     color: white;
     border-top-right-radius: 142px;
     position: relative;
@@ -369,7 +377,7 @@ button {
     border-bottom: 1.5px solid var(--color--darkest--blue);
 }
 
-.custom--navbar  .custom--nav--item {
+.custom--navbar .custom--nav--item {
     font-weight: 900;
     font-size: 20px;
     color: black;
@@ -393,9 +401,11 @@ button {
 .navbar--study:hover {
     color: white;
 }
+
 .navbar--study {
     margin: 0 25px;
 }
+
 main {
     margin-top: 100px;
 }
@@ -413,14 +423,16 @@ main {
         border: 1px solid #e73841;
         background-color: rgba(231,56,65,0.4);
     }
+
         .steal--button:hover .steal--icon {
             transition: 300ms all ease-in-out;
             transform: translateY(-5px);
         }
-    .steal--icon {
-        height: 37px;
-        margin: 10px;
-    }
+
+.steal--icon {
+    height: 37px;
+    margin: 10px;
+}
 
 .steal--text--holder {
     margin: 5px 0 5px;
@@ -458,23 +470,27 @@ main {
 
 .visy--hint {
     position: absolute;
-    top: -67px;
     color: black;
     background-color: white;
     right: 35px;
     display: flex;
+    align-items: center;
+    padding: 3px 10px;
+    margin-bottom: 0;
+    top: -19.3px;
 }
 
 .visy--cool-border {
     margin: 50px auto;
-    border-top: 3px solid #3acfd5;
-    border-bottom: 3px solid #3a4ed5;
+    border-top: 5px solid #3acfd5;
+    border-bottom: 5px solid #3a4ed5;
     box-sizing: border-box;
     background-position: 0 0, 100% 0;
     background-repeat: no-repeat;
-    background-size: 3px 100%;
-    background-image: linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%), linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%);
+    background-size: 5px 100%;
+    background-image: var(--gradient-border);
     border-radius: 5px;
+    /*border-radius: inherit;*/
 }
 
 .visy--cool-border__small {
@@ -489,18 +505,18 @@ main {
 
 .hint--icon {
     height: 25px;
-    margin-left: 10px;
-    margin-top: 3px;
+  
 }
 
 .hint--text {
     font-weight: 900;
-    margin: 5px 0px 4px 10px;
+    margin: 0;
+    margin-left: 10px;
 }
 
 .visy--show-answer {
     position: absolute;
-    bottom: -85px;
+    bottom: -38px;
     background-color: white;
     color: black;
     padding-top: 10px;
@@ -570,7 +586,9 @@ main {
     flex-wrap: wrap;
     border: 10px solid #b11852;
 }
-
+.visy--test {
+    z-index: -2;
+}
 @media only screen and (max-width: 600px) {
     .visy--test--question {
         font-size: 30px;
@@ -583,8 +601,10 @@ main {
 
 .test-button {
     position: absolute;
-    bottom:0;
-    margin-bottom:-22.5px;
+    bottom: 0;
+    margin-bottom: -22.5px;
+    font-weight: 600;
+    font-size: 20px;
 }
 
 .options--holder {
@@ -594,6 +614,7 @@ main {
     flex-direction: column;
     align-items: center;
 }
+
 .option--button {
     font-weight: 900;
     display: flex;
@@ -604,14 +625,16 @@ main {
     letter-spacing: 2px;
     padding: 10px 25px;
 }
+
 .show--answer {
     font-size: 18px;
 }
+
 .option--button:hover {
     cursor: pointer;
 }
 
-.start-button{
+.start-button {
     margin-left: -50px;
 }
 
@@ -623,6 +646,7 @@ main {
     margin-left: 50px;*/
     padding: 25px;
 }
+
 .deck--title {
     font-weight: 900;
     text-align: center;
@@ -633,19 +657,23 @@ main {
     color: var(--color--dark--blue);
     margin-bottom: 10px;
 }
-.deck--list{
-    font-weight:bolder;
-    margin-bottom:0px;
+
+.deck--list {
+    font-weight: bolder;
+    margin-bottom: 0px;
 }
-.wall--group--holder{
+
+.wall--group--holder {
     border-radius: 5px;
     padding: 30px;
 }
+
 .wall--group--title {
     font-size: 30px;
     font-weight: 900;
     margin-bottom: 20px;
 }
+
 .wall--profile--image {
     height: 35px;
     border-radius: 100%;
@@ -657,12 +685,13 @@ main {
     border-radius: 100%;
     border: 1px solid var(--color--light--blue);
 }
-.wall--new-post input{
+
+.wall--new-post input {
     border-radius: 15px;
     border: 1px solid var(--color--dark--blue);
 }
 
-.wall--new-post a i{
+.wall--new-post a i {
     font-size: 25px;
     color: var(--color--dark--blue);
 }
@@ -672,6 +701,7 @@ main {
     padding: 5px 15px;
     border-radius: 20px
 }
+
 .comment {
     border: 3px solid var(--color--lightest--blue);
     padding: 5px 15px;
@@ -741,8 +771,9 @@ main {
     .navbar--right {
         flex-wrap: wrap;
     }
+
     main {
-        margin-top: 75px!important;
+        margin-top: 75px !important;
         padding: 0 20px;
     }
 
@@ -751,20 +782,24 @@ main {
     }
 
     .post-feed {
-        width: 100%!important;
+        width: 100% !important;
         margin: auto 0;
     }
+
     .comment {
-        margin-left: 10px!important;
+        margin-left: 10px !important;
     }
-    .comment h4 {
-        font-size: 11px;
-    }
+
+        .comment h4 {
+            font-size: 11px;
+        }
+
     .wall--profile--txt {
         display: none;
     }
+
     .voting {
         position: relative;
-        display: none!important;
+        display: none !important;
     }
 }
